@@ -1,0 +1,15 @@
+{
+    "autoload": {
+        "psr-4": {
+            "TSantos\\Benchmark\\" : "src/"
+        }
+    },
+    "require": {
+        "jms/serializer": "^1.7",
+        "symfony/stopwatch": "^3.3",
+        "symfony/serializer": "^3.3",
+        "symfony/property-access": "^3.3",
+        "tsantos/serializer": "dev-master",
+        "doctrine/cache": "^1.6"
+    }
+}

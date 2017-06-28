@@ -1,0 +1,10 @@
+Benchmark/Benchmark/Person:
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    married:
+      type: boolean
+    Mother:
+      type: Benchmark/Benchmark/Person
