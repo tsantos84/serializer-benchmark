@@ -60,14 +60,14 @@ exactly because I use it a lot in my personal and company projects.
 As you can see, as the interactions is growing the JMS and Symfony will taking more time to serializer the objects. In big applications having milions of simultaneos access
 it can be a considerable metric when choose such libraries. 
 
-![New Relic Response Time](https://github.com/tsantos84/serializer/raw/master/img/benchmark.png "JMS, Symfony and TSantos comparison")
+![New Relic Response Time](https://github.com/tsantos84/serializers-benchmarking/raw/master/img/benchmark.png "JMS, Symfony and TSantos comparison")
 
 	As mentioned above, the Docker host can impact on the results. The above image shows the 
 	interactions/response time when running in the same image but on an OS X host.
 
 The following chart shows how the response time was improved drastically when I switch from JMS to TSantos Serializer.
 
-![New Relic Response Time](https://github.com/tsantos84/serializer/raw/master/img/serialization-new-relic.png "API using TSantos serializer")
+![New Relic Response Time](https://github.com/tsantos84/serializers-benchmarking/raw/master/img/serialization-new-relic.png "API using TSantos serializer")
 
 ## Conclusion
 
