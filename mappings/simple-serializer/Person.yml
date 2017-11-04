@@ -1,0 +1,14 @@
+Benchmark/Benchmark/Person:
+  properties:
+    id:
+      expose: true
+      type: string
+    name:
+      expose: true
+      type: string
+    married:
+      expose: true
+      type: boolean
+    Mother:
+      expose: true
+      type: Benchmark/Benchmark/Person

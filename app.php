@@ -2,6 +2,12 @@
 
 use JMS\Serializer\Serializer as JMSSerializer;
 use JMS\Serializer\SerializerBuilder as JMSSerializerBuilder;
+use Opensoft\SimpleSerializer\Adapter\ArrayAdapter;
+use Opensoft\SimpleSerializer\Adapter\JsonAdapter;
+use Opensoft\SimpleSerializer\Metadata\Driver\FileLocator;
+use Opensoft\SimpleSerializer\Metadata\Driver\YamlDriver;
+use Opensoft\SimpleSerializer\Metadata\MetadataFactory;
+use Opensoft\SimpleSerializer\Serializer as SimpleSerializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer as SFSerializer;
@@ -60,6 +66,23 @@ $benchmark->addCode('tsantos', function () {
     $serializer->serialize($person, 'json');
 });
 
+$benchmark->addCode('simple_serializer', function () {
+    $yamlDriver = new YamlDriver(new FileLocator([__DIR__ . '/mappings/simple-serializer']));
+    $metadataFactory = new MetadataFactory($yamlDriver);
+    $jsonAdapter = new JsonAdapter();
+    $arrayAdapter = new ArrayAdapter($metadataFactory);
+
+    return new SimpleSerializer($arrayAdapter, $jsonAdapter);
+}, function (SimpleSerializer $serializer, int $interaction) {
+    $person = new Person(
+        $interaction,
+        'Foo ',
+        true,
+        new Person($interaction, 'Foo\'s mother', false)
+    );
+    $serializer->serialize($person);
+});
+
 $benchmark->addCode('jms', function () {
     return JMSSerializerBuilder::create()
         ->setDebug(false)
@@ -81,7 +104,7 @@ $interactions = (int) ($argv[1] ?? 10);
 if ($interactions === 0) {
     $interactions = 10;
 }
-$vendors = ['jms', 'symfony', 'tsantos'];
+$vendors = ['jms', 'symfony', 'tsantos', 'simple_serializer'];
 
 echo "\nSerializing $interactions objects on " . join(', ', $vendors) . "\n\n";
 
