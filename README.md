@@ -5,6 +5,7 @@ This project aims to compare the performance of the must used (except the last o
 - [JMS Serializer](http://jmsyst.com/libs/serializer)
 - [Symfony Serializer](https://symfony.com/doc/current/components/serializer.html)
 - [TSantos Serializer](https://github.com/tsantos84/serializer)
+- [SimpleSerializer](https://github.com/opensoft/simple-serializer/)
 
 ## Inspiration
 
@@ -43,7 +44,7 @@ OS X you will see a very different result compared to Ubuntu for example, but th
 You can run it by typing the following command in your terminal:
 
 ```bash
-docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli php app.php 100
+docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli-alpine php app.php 100
 ```
 
 ## Results
@@ -51,11 +52,12 @@ docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli php app.php 100
 I've got surprised when I saw the results because the JMS Serializer - the one I used to use - was the slowest serialization component which caught my attention 
 exactly because I use it a lot in my personal and company projects.
 
-| Vendor   | 1 Int. | 10 Int. | 50 Int. | 100 Int. | 200 Int. | 300 Int. | 400 Int. | 500 Int. | 1k Int. |
-|----------|--------|---------|---------|----------|----------|----------|----------|----------|---------|
-| JMS      | 0      | 0       | 2       | 4        | 8        | 13       | 22       | 21       | 42      |
-| Symfony  | 0      | 0       | 1       | 1        | 5        | 7        | 11       | 11       | 24      |
-| TSantos  | 0      | 0       | 0       | 0        | 2        | 2        | 3        | 4        | 8       |
+| Vendor            | 1 Int. | 10 Int. | 50 Int. | 100 Int. | 200 Int. | 500 Int. | 1k Int. | 10k Int. | 50k Int. |
+|-------------------|--------|---------|---------|----------|----------|----------|---------|----------|----------|
+| JMS               | 0      | 1       | 4       | 11       | 20       | 53       | 101     | 1107     | 5244     |
+| Symfony           | 0      | 0       | 3       | 7        | 16       | 39       | 72      | 786      | 3787     |
+| TSantos           | 0      | 0       | 1       | 1        | 4        | 13       | 24      | 222      | 1157     |
+| SimpleSerializer  | 0      | 0       | 0       | 0        | 1        | 2        | 5       | 48       | 266      |
 
 As you can see, as the interactions is growing the JMS and Symfony will taking more time to serializer the objects. In big applications having milions of simultaneos access
 it can be a considerable metric when choose such libraries. 
