@@ -9,6 +9,9 @@ Benchmark/Benchmark/Person:
     married:
       expose: true
       type: boolean
+    favoriteColors:
+      expose: true
+      type: array<string>
     Mother:
       expose: true
       type: Benchmark/Benchmark/Person

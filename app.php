@@ -31,7 +31,8 @@ $benchmark->addCode('symfony', function () {
         $interaction,
         'Foo ',
         true,
-        new Person($interaction, 'Foo\'s mother', false)
+        ['blue', 'red'],
+        new Person($interaction, 'Foo\'s mother', false, ['blue', 'violet'])
     );
     $serializer->serialize($person, 'json');
 });
@@ -61,7 +62,8 @@ $benchmark->addCode('tsantos', function () {
         $interaction,
         'Foo ',
         true,
-        new Person($interaction, 'Foo\'s mother', false)
+        ['blue', 'red'],
+        new Person($interaction, 'Foo\'s mother', false, ['blue', 'violet'])
     );
     $serializer->serialize($person, 'json');
 });
@@ -78,7 +80,8 @@ $benchmark->addCode('simple_serializer', function () {
         $interaction,
         'Foo ',
         true,
-        new Person($interaction, 'Foo\'s mother', false)
+        ['blue', 'red'],
+        new Person($interaction, 'Foo\'s mother', false, ['blue', 'violet'])
     );
     $serializer->serialize($person);
 });
@@ -94,7 +97,8 @@ $benchmark->addCode('jms', function () {
         $interaction,
         'Foo ',
         true,
-        new Person($interaction, 'Foo\'s mother', false)
+        ['blue', 'red'],
+        new Person($interaction, 'Foo\'s mother', false, ['blue', 'violet'])
     );
     $serializer->serialize($person, 'json');
 });

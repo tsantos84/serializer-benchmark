@@ -6,5 +6,7 @@ Benchmark/Benchmark/Person:
       type: string
     married:
       type: boolean
+    favoriteColors:
+      type: array<string>
     Mother:
       type: Benchmark/Benchmark/Person
