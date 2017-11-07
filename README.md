@@ -33,12 +33,12 @@ git clone https://github.com/tsantos84/serializers-benchmarking.git
 Install the application's dependencies including Symfony and JMS serializer components.
 
 ```bash
-composer install -a --no-dev
+docker run --rm --interactive --tty -v $(pwd):/app composer install -a --no-dev
 ```
 
 ## Execution
 
-The benchmark application were executed in an official PHP docker image (PHP 7.1-cli). The results is directly influenced by the Docker host, so if you are running this script on
+The benchmark application were executed in an official PHP docker image (PHP 7.1-cli-alpine). The results is directly influenced by the Docker host, so if you are running this script on
 OS X you will see a very different result compared to Ubuntu for example, but the average response time between the components keep in the same proportion. (see results section)
 
 You can run it by typing the following command in your terminal:
@@ -71,14 +71,25 @@ The following chart shows how the response time was improved drastically when I 
 
 ![New Relic Response Time](https://github.com/tsantos84/serializers-benchmarking/raw/master/img/serialization-new-relic.png "API using TSantos serializer")
 
-## Conclusion
 
-After making this benchmark, I got inspired to write [my own serialization component](https://github.com/tsantos84/serializer) and the results are pointing me that in terms of performance,
-I'm going to the right way. I have no intention to make the common mistake of [DRY](https://pt.wikipedia.org/wiki/Don%27t_repeat_yourself) but, in some cases, the performance is a requirement 
-and those libraries can introduce some unnecessary overhead in your application and hence make your application be slow.
+## Development
 
-## TSantos Serializer
+For easy debug use Dockerfile from this repository. Just do:
 
-I'm writing a serialization library with a diferent approach compared to JMS and Symfony. Both two use lot of reflections to access the property values and make
-lot of loops to interact through each property of each object that is being serialized. TSantos Serializer uses different way to serialize objects and at 
-the same time keep the usefull features offerred by the others library.
+```bash
+docker build -t php:7.1-cli-alpine-xdebug .
+```
+
+to build a minimal image that contains php7.1 with xdebug installed and configured for debugging.
+The image already contains PHP_IDE_CONFIG environment variable setting `serverName` to `serializers-benchmarking`,
+but you'll have to pass in the XDEBUG_CONFIG variable, when running, similar to this:
+
+```bash
+docker run --rm -it -v $(pwd):/opt -w /opt -e XDEBUG_CONFIG="remote_host=172.17.0.1" php:7.1-cli-alpine-xdebug php app.php 1
+```
+
+Use your host IP address as `remote_host` value. You can find it using, for example, following command:
+
+```bash
+ifconfig docker0 | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'
+```

@@ -1,6 +1,7 @@
 FROM php:7.1-cli-alpine
 RUN apk add --no-cache g++ make autoconf
 RUN pecl install xdebug && docker-php-ext-enable xdebug
+ENV PHP_IDE_CONFIG "serverName=serializers-benchmarking"
 
 RUN printf '\n\
 [Xdebug]\n\
