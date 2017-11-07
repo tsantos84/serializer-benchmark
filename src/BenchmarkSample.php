@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (C) 2017 Eduard Sukharev
  *
@@ -30,7 +31,7 @@ namespace TSantos\Benchmark;
  */
 abstract class BenchmarkSample
 {
-    abstract public function getName();
-    abstract public function run($iteration);
+    abstract public function getName() : string;
+    abstract public function run(?int $iteration = 0);
     abstract public function verify($result);
 }

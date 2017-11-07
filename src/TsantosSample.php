@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (C) 2017 Eduard Sukharev
  *
@@ -41,6 +42,9 @@ class TsantosSample extends SerializerBenchmarkSample
                         'married' => [
                             'getter' => 'isMarried'
                         ],
+                        'favoriteColors' => [
+                            'type' => 'array<string>'
+                        ],
                         'mother' => [
                             'type' => Person::class
                         ]
@@ -52,12 +56,12 @@ class TsantosSample extends SerializerBenchmarkSample
             ->build();
     }
 
-    protected function serialize($object)
+    protected function serialize($object) : string
     {
         return $this->serializer->serialize($object, 'json');
     }
 
-    public function getName()
+    public function getName() : string
     {
         return 'tsantos';
     }

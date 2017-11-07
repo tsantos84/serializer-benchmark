@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TSantos\Benchmark;
 
@@ -23,14 +24,14 @@ class Benchmark
         $this->samples[] = $sample;
     }
 
-    public function listSampleNames()
+    public function listSampleNames() : array
     {
         return array_map(function(BenchmarkSample $sample) {
             return $sample->getName();
         }, $this->samples);
     }
 
-    public function run(int $interactions)
+    public function run(int $interactions) : array
     {
         $this->warmup();
         $this->doRun($interactions);
@@ -57,7 +58,7 @@ class Benchmark
     private function warmup()
     {
         foreach ($this->samples as $sample) {
-            $result = $sample->run(1);
+            $result = $sample->run();
             $sample->verify($result);
         }
     }

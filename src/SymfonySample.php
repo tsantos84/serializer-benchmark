@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (C) 2017 Eduard Sukharev
  *
@@ -38,12 +39,12 @@ class SymfonySample extends SerializerBenchmarkSample
         $this->serializer = new Serializer($normalizers, $encoders);
     }
 
-    protected function serialize($object)
+    protected function serialize($object) : string
     {
         return $this->serializer->serialize($object, 'json');
     }
 
-    public function getName()
+    public function getName() : string
     {
         return 'symfony';
     }

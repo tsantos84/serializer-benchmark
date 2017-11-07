@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright (C) 2017 Eduard Sukharev
  *
@@ -23,6 +24,8 @@
 
 namespace TSantos\Benchmark;
 
+use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
+use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\SerializerBuilder;
 
 class JmsSample extends SerializerBenchmarkSample
@@ -32,18 +35,19 @@ class JmsSample extends SerializerBenchmarkSample
     public function __construct()
     {
         $this->serializer = SerializerBuilder::create()
+            ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
             ->setCacheDir(__DIR__ . '/../cache/jms')
             ->addMetadataDir(__DIR__ . '/../mappings/jms', 'Benchmark\\Benchmark')
             ->build();
     }
 
-    protected function serialize($object)
+    protected function serialize($object) : string
     {
         return $this->serializer->serialize($object, 'json');
     }
 
-    public function getName()
+    public function getName() : string
     {
         return 'jms';
     }
