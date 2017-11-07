@@ -1,12 +1,17 @@
 Benchmark/Benchmark/Person:
   properties:
     id:
-      type: integer
+      expose: true
+      type: string
     name:
+      expose: true
       type: string
     married:
+      expose: true
       type: boolean
     favoriteColors:
+      expose: true
       type: array<string>
     Mother:
+      expose: true
       type: Benchmark/Benchmark/Person
