@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a47ccd5a4fa31da1d95257aad9723454",
+    "content-hash": "af97da8dd01d63a3d22dcbe5a484bab5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -416,6 +416,53 @@
                 "xml"
             ],
             "time": "2017-05-15T08:35:42+00:00"
+        },
+        {
+            "name": "opensoft/simple-serializer",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opensoft/simple-serializer.git",
+                "reference": "53b7434533527a02c1f0d29ff03486bae272f793"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opensoft/simple-serializer/zipball/53b7434533527a02c1f0d29ff03486bae272f793",
+                "reference": "53b7434533527a02c1f0d29ff03486bae272f793",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/yaml": ">=2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*@stable"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Opensoft": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Petrov",
+                    "email": "dmitry.petrov@opensoftdev.ru",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple Serializer",
+            "homepage": "http://github.com/opensoft/simple-serializer",
+            "keywords": [
+                "json",
+                "php",
+                "serializer"
+            ],
+            "time": "2015-09-10T10:02:47+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -874,17 +921,72 @@
             "time": "2017-04-12T14:14:56+00:00"
         },
         {
+            "name": "symfony/yaml",
+            "version": "v3.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "8c7bf1e7d5d6b05a690b715729cb4cd0c0a99c46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/8c7bf1e7d5d6b05a690b715729cb4cd0c0a99c46",
+                "reference": "8c7bf1e7d5d6b05a690b715729cb4cd0c0a99c46",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "require-dev": {
+                "symfony/console": "~2.8|~3.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-10-05T14:43:42+00:00"
+        },
+        {
             "name": "tsantos/serializer",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tsantos84/serializer.git",
-                "reference": "2d38d7c29303ede99d608b40ef99ae28e5696e38"
+                "reference": "328e1daaed396e3cabdb8c8bbb4cef3b6266a30b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tsantos84/serializer/zipball/2d38d7c29303ede99d608b40ef99ae28e5696e38",
-                "reference": "2d38d7c29303ede99d608b40ef99ae28e5696e38",
+                "url": "https://api.github.com/repos/tsantos84/serializer/zipball/328e1daaed396e3cabdb8c8bbb4cef3b6266a30b",
+                "reference": "328e1daaed396e3cabdb8c8bbb4cef3b6266a30b",
                 "shasum": ""
             },
             "require": {
@@ -915,7 +1017,7 @@
                 "metadata",
                 "serializer"
             ],
-            "time": "2017-06-26 01:25:04"
+            "time": "2017-07-17 01:43:10"
         }
     ],
     "packages-dev": [],
