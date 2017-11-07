@@ -1,4 +1,4 @@
-Benchmark/Benchmark/Person:
+TSantos\Benchmark\Person:
   properties:
     id:
       expose: true
@@ -14,4 +14,4 @@ Benchmark/Benchmark/Person:
       type: array<string>
     Mother:
       expose: true
-      type: Benchmark/Benchmark/Person
+      type: TSantos\Benchmark\Person

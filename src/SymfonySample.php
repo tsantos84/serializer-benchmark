@@ -29,11 +29,18 @@ use Symfony\Component\Serializer\Serializer;
 
 class SymfonySample extends SerializerBenchmarkSample
 {
+    protected $serializer;
+
     public function __construct()
     {
         $encoders = array(new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
         $this->serializer = new Serializer($normalizers, $encoders);
+    }
+
+    protected function serialize($object)
+    {
+        return $this->serializer->serialize($object, 'json');
     }
 
     public function getName()

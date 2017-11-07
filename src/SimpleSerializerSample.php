@@ -32,14 +32,21 @@ use Opensoft\SimpleSerializer\Serializer;
 
 class SimpleSerializerSample extends SerializerBenchmarkSample
 {
+    protected $serializer;
+
     public function __construct()
     {
-        $yamlDriver = new YamlDriver(new FileLocator([__DIR__ . '/mappings/simple-serializer']));
+        $yamlDriver = new YamlDriver(new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../mappings/simple-serializer']));
         $metadataFactory = new MetadataFactory($yamlDriver);
         $jsonAdapter = new JsonAdapter();
         $arrayAdapter = new ArrayAdapter($metadataFactory);
 
         $this->serializer = new Serializer($arrayAdapter, $jsonAdapter);
+    }
+
+    protected function serialize($object)
+    {
+        return $this->serializer->serialize($object);
     }
 
     public function getName()

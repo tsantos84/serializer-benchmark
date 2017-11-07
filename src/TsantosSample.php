@@ -28,6 +28,8 @@ use TSantos\Serializer\SerializerBuilder;
 
 class TsantosSample extends SerializerBenchmarkSample
 {
+    protected $serializer;
+
     public function __construct()
     {
         $this->serializer = (new SerializerBuilder())
@@ -45,9 +47,14 @@ class TsantosSample extends SerializerBenchmarkSample
                     ]
                 ]
             ]))
-            ->setCacheDir(__DIR__ . '/cache/tsantos')
+            ->setCacheDir(__DIR__ . '/../cache/tsantos')
             ->setDebug(false)
             ->build();
+    }
+
+    protected function serialize($object)
+    {
+        return $this->serializer->serialize($object, 'json');
     }
 
     public function getName()

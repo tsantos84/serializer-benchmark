@@ -99,6 +99,14 @@ class Person
     }
 
     /**
+     * @return bool
+     */
+    public function getMarried(): bool
+    {
+        return $this->married;
+    }
+
+    /**
      * @param bool $married
      * @return Person
      */

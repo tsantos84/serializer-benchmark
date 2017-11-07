@@ -27,13 +27,20 @@ use JMS\Serializer\SerializerBuilder;
 
 class JmsSample extends SerializerBenchmarkSample
 {
+    protected $serializer;
+
     public function __construct()
     {
         $this->serializer = SerializerBuilder::create()
             ->setDebug(false)
-            ->setCacheDir(__DIR__ . '/cache/jms')
-            ->addMetadataDir(__DIR__ . '/mappings/jms', 'Benchmark\\Benchmark')
+            ->setCacheDir(__DIR__ . '/../cache/jms')
+            ->addMetadataDir(__DIR__ . '/../mappings/jms', 'Benchmark\\Benchmark')
             ->build();
+    }
+
+    protected function serialize($object)
+    {
+        return $this->serializer->serialize($object, 'json');
     }
 
     public function getName()

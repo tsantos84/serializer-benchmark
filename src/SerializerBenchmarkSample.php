@@ -25,7 +25,7 @@ namespace TSantos\Benchmark;
 
 abstract class SerializerBenchmarkSample extends BenchmarkSample
 {
-    protected $serializer;
+    abstract protected function serialize($object);
 
     public function run($iteration)
     {
@@ -37,20 +37,20 @@ abstract class SerializerBenchmarkSample extends BenchmarkSample
             new Person($iteration, 'Foo\'s mother', false, ['blue', 'violet'])
         );
 
-        return $this->serializer->serialize($person, 'json');
+        return $this->serialize($person);
     }
 
     public function verify($result)
     {
         $object = json_decode($result, true);
-        assert(is_int($object['id']));
-        assert($object['name'] == 'Foo ');
-        assert($object['married'] === true);
-        assert($object['favoriteColors'] === ['blue', 'red']);
-        assert(is_array($object['mother']));
-        assert($object['mother']['id'] === $object['id']);
-        assert($object['mother']['name'] === 'Foo\'s mother');
-        assert($object['mother']['married'] === false);
-        assert($object['mother']['favoriteColors'] === ['blue', 'violet']);
+        assert(is_int($object['id']), $this->getName());
+        assert($object['name'] == 'Foo ', $this->getName());
+        assert($object['married'] === true, $this->getName());
+        assert($object['favoriteColors'] === ['blue', 'red'], $this->getName());
+        assert(is_array($object['mother']), $this->getName());
+        assert($object['mother']['id'] === $object['id'], $this->getName());
+        assert($object['mother']['name'] === 'Foo\'s mother', $this->getName());
+        assert($object['mother']['married'] === false, $this->getName());
+        assert($object['mother']['favoriteColors'] === ['blue', 'violet'], $this->getName());
     }
 }

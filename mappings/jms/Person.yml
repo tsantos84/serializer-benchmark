@@ -8,5 +8,6 @@ Benchmark/Benchmark/Person:
       type: boolean
     favoriteColors:
       type: array<string>
+      serialized_name: favoriteColors
     Mother:
       type: Benchmark/Benchmark/Person
