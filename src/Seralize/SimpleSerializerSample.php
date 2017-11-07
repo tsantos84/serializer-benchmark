@@ -22,47 +22,36 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace TSantos\Benchmark;
+namespace TSantos\Benchmark\Serialize;
 
-use TSantos\Serializer\Metadata\Driver\ArrayDriver;
-use TSantos\Serializer\SerializerBuilder;
+use Opensoft\SimpleSerializer\Adapter\ArrayAdapter;
+use Opensoft\SimpleSerializer\Adapter\JsonAdapter;
+use Opensoft\SimpleSerializer\Metadata\Driver\FileLocator;
+use Opensoft\SimpleSerializer\Metadata\Driver\YamlDriver;
+use Opensoft\SimpleSerializer\Metadata\MetadataFactory;
+use Opensoft\SimpleSerializer\Serializer;
 
-class TsantosSample extends SerializerBenchmarkSample
+class SimpleSerializerSample extends SerializerBenchmarkSample
 {
     protected $serializer;
 
     public function __construct()
     {
-        $this->serializer = (new SerializerBuilder())
-            ->setMetadataDriver(new ArrayDriver([
-                Person::class => [
-                    'properties' => [
-                        'id' => [],
-                        'name' => [],
-                        'married' => [
-                            'getter' => 'isMarried'
-                        ],
-                        'favoriteColors' => [
-                            'type' => 'array<string>'
-                        ],
-                        'mother' => [
-                            'type' => Person::class
-                        ]
-                    ]
-                ]
-            ]))
-            ->setCacheDir(__DIR__ . '/../cache/tsantos')
-            ->setDebug(false)
-            ->build();
+        $yamlDriver = new YamlDriver(new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../mappings/simple-serializer']));
+        $metadataFactory = new MetadataFactory($yamlDriver);
+        $jsonAdapter = new JsonAdapter();
+        $arrayAdapter = new ArrayAdapter($metadataFactory);
+
+        $this->serializer = new Serializer($arrayAdapter, $jsonAdapter);
     }
 
     protected function serialize($object) : string
     {
-        return $this->serializer->serialize($object, 'json');
+        return $this->serializer->serialize($object);
     }
 
     public function getName() : string
     {
-        return 'tsantos';
+        return 'simple serializer';
     }
 }

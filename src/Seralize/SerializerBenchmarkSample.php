@@ -22,7 +22,7 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace TSantos\Benchmark;
+namespace TSantos\Benchmark\Serialize;
 
 abstract class SerializerBenchmarkSample extends BenchmarkSample
 {
