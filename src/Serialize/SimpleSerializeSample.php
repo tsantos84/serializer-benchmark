@@ -31,7 +31,7 @@ use Opensoft\SimpleSerializer\Metadata\Driver\YamlDriver;
 use Opensoft\SimpleSerializer\Metadata\MetadataFactory;
 use Opensoft\SimpleSerializer\Serializer;
 
-class SimpleSerializerSample extends SerializerBenchmarkSample
+class SimpleSerializeSample extends SerializeBenchmarkSample
 {
     protected $serializer;
 

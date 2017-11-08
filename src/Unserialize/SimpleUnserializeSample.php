@@ -22,33 +22,36 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace TSantos\Benchmark\Serialize;
+namespace TSantos\Benchmark\Unserialize;
 
-use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
-use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
-use JMS\Serializer\SerializerBuilder;
+use Opensoft\SimpleSerializer\Adapter\ArrayAdapter;
+use Opensoft\SimpleSerializer\Adapter\JsonAdapter;
+use Opensoft\SimpleSerializer\Metadata\Driver\FileLocator;
+use Opensoft\SimpleSerializer\Metadata\Driver\YamlDriver;
+use Opensoft\SimpleSerializer\Metadata\MetadataFactory;
+use Opensoft\SimpleSerializer\Serializer;
 
-class JmsSample extends SerializerBenchmarkSample
+class SimpleUnserializeSample extends UnserializeBenchmarkSample
 {
     protected $serializer;
 
     public function __construct()
     {
-        $this->serializer = SerializerBuilder::create()
-            ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
-            ->setDebug(false)
-            ->setCacheDir(__DIR__ . '/../cache/jms')
-            ->addMetadataDir(__DIR__ . '/../mappings/jms', 'Benchmark\\Benchmark')
-            ->build();
+        $yamlDriver = new YamlDriver(new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../mappings/simple-serializer']));
+        $metadataFactory = new MetadataFactory($yamlDriver);
+        $jsonAdapter = new JsonAdapter();
+        $arrayAdapter = new ArrayAdapter($metadataFactory);
+
+        $this->serializer = new Serializer($arrayAdapter, $jsonAdapter);
     }
 
-    protected function serialize($object) : string
+    protected function unserialize(string $json)
     {
-        return $this->serializer->serialize($object, 'json');
+        return $this->serializer->unserialize($json, $type);
     }
 
     public function getName() : string
     {
-        return 'jms';
+        return 'simple serializer';
     }
 }

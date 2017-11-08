@@ -24,36 +24,19 @@ declare(strict_types=1);
 
 namespace TSantos\Benchmark\Serialize;
 
-use TSantos\Serializer\Metadata\Driver\ArrayDriver;
-use TSantos\Serializer\SerializerBuilder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
-class TsantosSample extends SerializerBenchmarkSample
+class SymfonySample extends SerializeBenchmarkSample
 {
     protected $serializer;
 
     public function __construct()
     {
-        $this->serializer = (new SerializerBuilder())
-            ->setMetadataDriver(new ArrayDriver([
-                Person::class => [
-                    'properties' => [
-                        'id' => [],
-                        'name' => [],
-                        'married' => [
-                            'getter' => 'isMarried'
-                        ],
-                        'favoriteColors' => [
-                            'type' => 'array<string>'
-                        ],
-                        'mother' => [
-                            'type' => Person::class
-                        ]
-                    ]
-                ]
-            ]))
-            ->setCacheDir(__DIR__ . '/../cache/tsantos')
-            ->setDebug(false)
-            ->build();
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $this->serializer = new Serializer($normalizers, $encoders);
     }
 
     protected function serialize($object) : string
@@ -63,6 +46,6 @@ class TsantosSample extends SerializerBenchmarkSample
 
     public function getName() : string
     {
-        return 'tsantos';
+        return 'symfony';
     }
 }

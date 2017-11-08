@@ -22,11 +22,13 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace TSantos\Benchmark\Serialize;
+namespace TSantos\Benchmark\Unserialize;
 
-abstract class SerializerBenchmarkSample extends BenchmarkSample
+use TSantos\Benchmark\BenchmarkSample;
+
+abstract class UnserializeBenchmarkSample extends BenchmarkSample
 {
-    abstract protected function serialize($object) : string;
+    abstract protected function unserialize(string $json);
 
     public function run(?int $iteration = 0) : string
     {
@@ -38,7 +40,7 @@ abstract class SerializerBenchmarkSample extends BenchmarkSample
             new Person($iteration, 'Foo\'s mother', false, ['blue', 'violet'])
         );
 
-        return $this->serialize($person);
+        return $this->unserialize($json);
     }
 
     public function verify($result)

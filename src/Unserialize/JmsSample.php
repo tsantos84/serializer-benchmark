@@ -22,30 +22,33 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace TSantos\Benchmark\Serialize;
+namespace TSantos\Benchmark\Unserialize;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
+use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
+use JMS\Serializer\SerializerBuilder;
 
-class SymfonySample extends SerializerBenchmarkSample
+class JmsSample extends UnserializeBenchmarkSample
 {
     protected $serializer;
 
     public function __construct()
     {
-        $encoders = array(new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-        $this->serializer = new Serializer($normalizers, $encoders);
+        $this->serializer = SerializerBuilder::create()
+            ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
+            ->setDebug(false)
+            ->setCacheDir(__DIR__ . '/../cache/jms')
+            ->addMetadataDir(__DIR__ . '/../mappings/jms', 'Benchmark\\Benchmark')
+            ->build();
     }
 
-    protected function serialize($object) : string
+    protected function unserialize(string $json)
     {
-        return $this->serializer->serialize($object, 'json');
+        return $this->serializer->deserialize($json, $type, 'json');
     }
 
     public function getName() : string
     {
-        return 'symfony';
+        return 'jms';
     }
 }
