@@ -17,6 +17,8 @@ class Person
     private $mother;
     /** @var  boolean */
     private $married;
+    /** @var array */
+    private $favoriteColors;
 
     /**
      * Person constructor.
@@ -25,11 +27,12 @@ class Person
      * @param bool $married
      * @param Person $mother
      */
-    public function __construct(int $id, string $name, bool $married, Person $mother = null)
+    public function __construct(int $id, string $name, bool $married, array $favoriteColors, Person $mother = null)
     {
         $this->id = $id;
         $this->name = $name;
         $this->mother = $mother;
+        $this->favoriteColors = $favoriteColors;
         $this->married = $married;
     }
 
@@ -102,6 +105,24 @@ class Person
     public function setMarried(bool $married): Person
     {
         $this->married = $married;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFavoriteColors(): array
+    {
+        return $this->favoriteColors;
+    }
+
+    /**
+     * @param array $favoriteColors
+     * @return Person
+     */
+    public function setFavoriteColors(array $favoriteColors): Person
+    {
+        $this->favoriteColors = $favoriteColors;
         return $this;
     }
 }
