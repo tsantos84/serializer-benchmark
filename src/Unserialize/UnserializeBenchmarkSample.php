@@ -29,6 +29,7 @@ use TSantos\Benchmark\BenchmarkSample;
 abstract class UnserializeBenchmarkSample extends BenchmarkSample
 {
     abstract protected function unserialize(string $json);
+    abstract protected function getSampleName() : string;
 
     public function run(?int $iteration = 0) : string
     {
@@ -56,5 +57,10 @@ abstract class UnserializeBenchmarkSample extends BenchmarkSample
         assert($object['mother']['married'] === false, $this->getName());
         assert($object['mother']['favoriteColors'] === ['blue', 'violet'], $this->getName());
         assert(array_key_exists('mother', $object['mother']), $this->getName());
+    }
+
+    final public function getName() : string
+    {
+        return '[unserialization] ' . $this->getSampleName();
     }
 }

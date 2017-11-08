@@ -31,13 +31,13 @@ use Opensoft\SimpleSerializer\Metadata\Driver\YamlDriver;
 use Opensoft\SimpleSerializer\Metadata\MetadataFactory;
 use Opensoft\SimpleSerializer\Serializer;
 
-class SimpleSerializeSample extends SerializeBenchmarkSample
+class SimpleSerializerSample extends SerializeBenchmarkSample
 {
     protected $serializer;
 
     public function __construct()
     {
-        $yamlDriver = new YamlDriver(new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../mappings/simple-serializer']));
+        $yamlDriver = new YamlDriver(new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../../mappings/simple-serializer']));
         $metadataFactory = new MetadataFactory($yamlDriver);
         $jsonAdapter = new JsonAdapter();
         $arrayAdapter = new ArrayAdapter($metadataFactory);
@@ -50,7 +50,7 @@ class SimpleSerializeSample extends SerializeBenchmarkSample
         return $this->serializer->serialize($object);
     }
 
-    public function getName() : string
+    public function getSampleName() : string
     {
         return 'simple serializer';
     }

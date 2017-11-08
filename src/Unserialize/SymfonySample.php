@@ -44,7 +44,7 @@ class SymfonySample extends UnserializeBenchmarkSample
         return $this->serializer->deserialize($json, $type, 'json');
     }
 
-    public function getName() : string
+    public function getSampleName() : string
     {
         return 'symfony';
     }

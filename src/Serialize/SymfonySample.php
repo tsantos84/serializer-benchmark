@@ -44,7 +44,7 @@ class SymfonySample extends SerializeBenchmarkSample
         return $this->serializer->serialize($object, 'json');
     }
 
-    public function getName() : string
+    public function getSampleName() : string
     {
         return 'symfony';
     }

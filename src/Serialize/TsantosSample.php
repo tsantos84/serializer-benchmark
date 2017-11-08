@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace TSantos\Benchmark\Serialize;
 
+use TSantos\Benchmark\Person;
 use TSantos\Serializer\Metadata\Driver\ArrayDriver;
 use TSantos\Serializer\SerializerBuilder;
 
@@ -51,7 +52,7 @@ class TsantosSample extends SerializeBenchmarkSample
                     ]
                 ]
             ]))
-            ->setCacheDir(__DIR__ . '/../cache/tsantos')
+            ->setCacheDir(__DIR__ . '/../../cache/tsantos')
             ->setDebug(false)
             ->build();
     }
@@ -61,7 +62,7 @@ class TsantosSample extends SerializeBenchmarkSample
         return $this->serializer->serialize($object, 'json');
     }
 
-    public function getName() : string
+    public function getSampleName() : string
     {
         return 'tsantos';
     }

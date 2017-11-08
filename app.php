@@ -1,10 +1,10 @@
 <?php
 
 use TSantos\Benchmark\Benchmark;
-use TSantos\Benchmark\JmsSample;
-use TSantos\Benchmark\SimpleSerializerSample;
-use TSantos\Benchmark\SymfonySample;
-use TSantos\Benchmark\TsantosSample;
+use TSantos\Benchmark\Serialize\JmsSample;
+use TSantos\Benchmark\Serialize\SimpleSerializerSample;
+use TSantos\Benchmark\Serialize\SymfonySample;
+use TSantos\Benchmark\Serialize\TsantosSample;
 
 require __DIR__ . '/vendor/autoload.php';
 

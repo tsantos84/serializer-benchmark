@@ -37,8 +37,8 @@ class JmsSample extends SerializeBenchmarkSample
         $this->serializer = SerializerBuilder::create()
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
-            ->setCacheDir(__DIR__ . '/../cache/jms')
-            ->addMetadataDir(__DIR__ . '/../mappings/jms', 'Benchmark\\Benchmark')
+            ->setCacheDir(__DIR__ . '/../../cache/jms')
+            ->addMetadataDir(__DIR__ . '/../../mappings/jms', 'Benchmark\\Benchmark')
             ->build();
     }
 
@@ -47,7 +47,7 @@ class JmsSample extends SerializeBenchmarkSample
         return $this->serializer->serialize($object, 'json');
     }
 
-    public function getName() : string
+    public function getSampleName() : string
     {
         return 'jms';
     }

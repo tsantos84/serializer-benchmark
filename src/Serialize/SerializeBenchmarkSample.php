@@ -25,10 +25,12 @@ declare(strict_types=1);
 namespace TSantos\Benchmark\Serialize;
 
 use TSantos\Benchmark\BenchmarkSample;
+use TSantos\Benchmark\Person;
 
 abstract class SerializeBenchmarkSample extends BenchmarkSample
 {
     abstract protected function serialize($object) : string;
+    abstract protected function getSampleName() : string;
 
     public function run(?int $iteration = 0) : string
     {
@@ -56,5 +58,10 @@ abstract class SerializeBenchmarkSample extends BenchmarkSample
         assert($object['mother']['married'] === false, $this->getName());
         assert($object['mother']['favoriteColors'] === ['blue', 'violet'], $this->getName());
         assert(array_key_exists('mother', $object['mother']), $this->getName());
+    }
+
+    final public function getName() : string
+    {
+        return '[serialization] ' . $this->getSampleName();
     }
 }
