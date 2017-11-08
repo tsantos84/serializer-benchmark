@@ -27,6 +27,7 @@ namespace TSantos\Benchmark\Unserialize;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use TSantos\Benchmark\Person;
 
 class SymfonySample extends UnserializeBenchmarkSample
 {
@@ -41,7 +42,7 @@ class SymfonySample extends UnserializeBenchmarkSample
 
     protected function unserialize(string $json)
     {
-        return $this->serializer->deserialize($json, $type, 'json');
+        return $this->serializer->deserialize($json, Person::class, 'json');
     }
 
     public function getSampleName() : string

@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace TSantos\Benchmark\Unserialize;
 
 use TSantos\Benchmark\BenchmarkSample;
+use TSantos\Benchmark\Person;
 
 abstract class UnserializeBenchmarkSample extends BenchmarkSample
 {
@@ -33,30 +34,39 @@ abstract class UnserializeBenchmarkSample extends BenchmarkSample
 
     public function run(?int $iteration = 0) : string
     {
-        $person = new Person(
-            $iteration,
-            'Foo ',
-            true,
-            ['blue', 'red'],
-            new Person($iteration, 'Foo\'s mother', false, ['blue', 'violet'])
-        );
+        $json = <<<JSON
+            {
+                "id":0,
+                "name":"Foo ",
+                "mother":{
+                    "id":0,
+                    "name":"Foo's mother",
+                    "mother":null,
+                    "married":false,
+                    "favoriteColors":["blue","violet"]
+                },
+                "married":true,
+                "favoriteColors":["blue","red"]
+            }
+JSON;
 
         return $this->unserialize($json);
     }
 
-    public function verify($result)
+    public function verify($object)
     {
-        $object = json_decode($result, true);
-        assert($object['id'] === 0, $this->getName());
-        assert($object['name'] === 'Foo ', $this->getName());
-        assert($object['married'] === true, $this->getName());
-        assert($object['favoriteColors'] === ['blue', 'red'], $this->getName());
-        assert(is_array($object['mother']), $this->getName());
-        assert($object['mother']['id'] === $object['id'], $this->getName());
-        assert($object['mother']['name'] === 'Foo\'s mother', $this->getName());
-        assert($object['mother']['married'] === false, $this->getName());
-        assert($object['mother']['favoriteColors'] === ['blue', 'violet'], $this->getName());
-        assert(array_key_exists('mother', $object['mother']), $this->getName());
+        assert(get_class($object) === Person::class, $this->getName());
+        /** @var Person $object */
+        assert($object->getId() === 0, $this->getName());
+        assert($object->getName() === 'Foo ', $this->getName());
+        assert($object->isMarried() === true, $this->getName());
+        assert($object->getFavoriteColors() === ['blue', 'red'], $this->getName());
+        assert(is_object($mother = $object->getMother()), $this->getName());
+        assert($mother->getId() === $object->getId(), $this->getName());
+        assert($mother->getName() === 'Foo\'s mother', $this->getName());
+        assert($mother->getMarried() === false, $this->getName());
+        assert($mother->getFavoriteColors() === ['blue', 'violet'], $this->getName());
+        assert($mother->getMother() === null, $this->getName());
     }
 
     final public function getName() : string

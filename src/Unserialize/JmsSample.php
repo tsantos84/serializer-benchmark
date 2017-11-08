@@ -27,6 +27,7 @@ namespace TSantos\Benchmark\Unserialize;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\SerializerBuilder;
+use TSantos\Benchmark\Person;
 
 class JmsSample extends UnserializeBenchmarkSample
 {
@@ -44,7 +45,7 @@ class JmsSample extends UnserializeBenchmarkSample
 
     protected function unserialize(string $json)
     {
-        return $this->serializer->deserialize($json, $type, 'json');
+        return $this->serializer->deserialize($json, Person::class, 'json');
     }
 
     public function getSampleName() : string

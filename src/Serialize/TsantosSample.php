@@ -26,6 +26,7 @@ namespace TSantos\Benchmark\Serialize;
 
 use TSantos\Benchmark\Person;
 use TSantos\Serializer\Metadata\Driver\ArrayDriver;
+use TSantos\Serializer\SerializationContext;
 use TSantos\Serializer\SerializerBuilder;
 
 class TsantosSample extends SerializeBenchmarkSample
@@ -59,7 +60,7 @@ class TsantosSample extends SerializeBenchmarkSample
 
     protected function serialize($object) : string
     {
-        return $this->serializer->serialize($object, 'json');
+        return $this->serializer->serialize($object, 'json', (new SerializationContext())->setSerializeNull(true));
     }
 
     public function getSampleName() : string

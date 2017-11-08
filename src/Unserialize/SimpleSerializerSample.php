@@ -30,6 +30,7 @@ use Opensoft\SimpleSerializer\Metadata\Driver\FileLocator;
 use Opensoft\SimpleSerializer\Metadata\Driver\YamlDriver;
 use Opensoft\SimpleSerializer\Metadata\MetadataFactory;
 use Opensoft\SimpleSerializer\Serializer;
+use TSantos\Benchmark\Person;
 
 class SimpleSerializerSample extends UnserializeBenchmarkSample
 {
@@ -47,7 +48,7 @@ class SimpleSerializerSample extends UnserializeBenchmarkSample
 
     protected function unserialize(string $json)
     {
-        return $this->serializer->unserialize($json, $type);
+        return $this->serializer->unserialize($json, Person::class);
     }
 
     public function getSampleName() : string

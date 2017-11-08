@@ -26,6 +26,7 @@ namespace TSantos\Benchmark\Serialize;
 
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 
 class JmsSample extends SerializeBenchmarkSample
@@ -44,7 +45,7 @@ class JmsSample extends SerializeBenchmarkSample
 
     protected function serialize($object) : string
     {
-        return $this->serializer->serialize($object, 'json');
+        return $this->serializer->serialize($object, 'json', (new SerializationContext())->setSerializeNull(true));
     }
 
     public function getSampleName() : string
