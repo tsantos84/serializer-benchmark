@@ -19,7 +19,7 @@ class Person
     /** @var  boolean */
     private $married;
     /** @var array */
-    private $favoriteColors;
+    private $favoriteColors = [];
 
     /**
      * Person constructor.
@@ -28,7 +28,7 @@ class Person
      * @param bool $married
      * @param Person $mother
      */
-    public function __construct(int $id, string $name, bool $married, array $favoriteColors, Person $mother = null)
+    public function __construct(int $id = null, string $name = null, bool $married = false, array $favoriteColors = [], ?Person $mother = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -85,7 +85,7 @@ class Person
      * @param Person $mother
      * @return Person
      */
-    public function setMother(Person $mother): Person
+    public function setMother(?Person $mother): Person
     {
         $this->mother = $mother;
         return $this;

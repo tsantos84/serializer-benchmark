@@ -26,6 +26,7 @@ namespace TSantos\Benchmark\Serialize;
 
 use Opensoft\SimpleSerializer\Adapter\ArrayAdapter;
 use Opensoft\SimpleSerializer\Adapter\JsonAdapter;
+use Opensoft\SimpleSerializer\Metadata\Cache\FileCache;
 use Opensoft\SimpleSerializer\Metadata\Driver\FileLocator;
 use Opensoft\SimpleSerializer\Metadata\Driver\YamlDriver;
 use Opensoft\SimpleSerializer\Metadata\MetadataFactory;
@@ -38,7 +39,7 @@ class SimpleSerializerSample extends SerializeBenchmarkSample
     public function __construct()
     {
         $yamlDriver = new YamlDriver(new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../../mappings/simple-serializer']));
-        $metadataFactory = new MetadataFactory($yamlDriver);
+        $metadataFactory = new MetadataFactory($yamlDriver, new FileCache(__DIR__ . '/../../cache'));
         $jsonAdapter = new JsonAdapter();
         $arrayAdapter = new ArrayAdapter($metadataFactory);
 

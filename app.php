@@ -5,6 +5,9 @@ use TSantos\Benchmark\Serialize\JmsSample as SerializeJms;
 use TSantos\Benchmark\Serialize\SimpleSerializerSample as SerializeSimple;
 use TSantos\Benchmark\Serialize\SymfonySample as SerializeSymfony;
 use TSantos\Benchmark\Serialize\TsantosSample as SerializeTsantos;
+use TSantos\Benchmark\Unserialize\JmsSample as UnserializeJms;
+use TSantos\Benchmark\Unserialize\SimpleSerializerSample as UnserializeSimple;
+use TSantos\Benchmark\Unserialize\SymfonySample as UnserializeSymfony;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -14,6 +17,10 @@ $benchmark->addSample(new SerializeJms());
 $benchmark->addSample(new SerializeSymfony());
 $benchmark->addSample(new SerializeSimple());
 $benchmark->addSample(new SerializeTsantos());
+
+$benchmark->addSample(new UnserializeJms());
+$benchmark->addSample(new UnserializeSymfony());
+$benchmark->addSample(new UnserializeSimple());
 
 $interactions = (int) ($argv[1] ?? 10);
 

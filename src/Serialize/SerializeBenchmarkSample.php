@@ -34,13 +34,17 @@ abstract class SerializeBenchmarkSample extends BenchmarkSample
 
     public function run(?int $iteration = 0) : string
     {
-        $person = new Person(
-            $iteration,
-            'Foo ',
-            true,
-            ['blue', 'red'],
-            new Person($iteration, 'Foo\'s mother', false, ['blue', 'violet'])
-        );
+        $person = (new Person())
+            ->setId($iteration)
+            ->setName('Foo ')
+            ->setMarried(true)
+            ->setFavoriteColors(['blue', 'red'])
+            ->setMother((new Person())
+                ->setId($iteration)
+                ->setName('Foo\'s mother')
+                ->setMarried(false)
+                ->setFavoriteColors(['blue', 'violet'])
+            );
 
         return $this->serialize($person);
     }

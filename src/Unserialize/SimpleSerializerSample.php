@@ -48,7 +48,7 @@ class SimpleSerializerSample extends UnserializeBenchmarkSample
 
     protected function unserialize(string $json)
     {
-        return $this->serializer->unserialize($json, Person::class);
+        return $this->serializer->unserialize($json, new Person());
     }
 
     public function getSampleName() : string
