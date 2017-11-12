@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace TSantos\Benchmark;
 
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
 
 /**
  * Class Benchmark
@@ -11,56 +13,53 @@ use Symfony\Component\Stopwatch\Stopwatch;
  */
 class Benchmark
 {
-    private $codes;
+    /** @var BenchmarkSample[] */
+    private $samples;
 
-    public function addCode(string $vendor, callable $initializer, callable $code)
+    /** @var StopwatchEvent[] */
+    private $results;
+
+    public function addSample(BenchmarkSample $sample)
     {
-        $this->codes[$vendor] = [
-            'initializer' => $initializer,
-            'code' => $code
-        ];
+        $this->samples[] = $sample;
     }
 
-    public function run(int $interactions, array $vendors = null)
+    public function listSampleNames() : array
     {
-        if (null === $vendors) {
-            $vendors = array_keys($this->codes);
-        }
-
-        // assert class were auto loaded
-        // warm up caches
-        $this->_doRun(1, $vendors);
-
-        // real run
-        return $this->_doRun($interactions, $vendors);
+        return array_map(function(BenchmarkSample $sample) {
+            return $sample->getName();
+        }, $this->samples);
     }
 
-    private function _doRun(int $interactions, array $vendors)
+    public function run(int $interactions) : array
     {
-        $results = [];
+        $this->warmup();
+        $this->doRun($interactions);
 
-        foreach ($vendors as $vendor) {
-            $results[$vendor] = $this->_doRunVendor($vendor, $interactions);
-        }
-
-        return $results;
+        return $this->results;
     }
 
-    private function _doRunVendor(string $vendor, int $interactions)
+    private function doRun(int $interactions)
     {
-        $code = $this->codes[$vendor];
+        foreach ($this->samples as $sample) {
+            $stopwatch = new Stopwatch();
 
-        $stopwatch = new Stopwatch();
+            $stopwatch->start('interaction');
+            for ($i = 0; $i < $interactions; $i++) {
+                $sample->run($i);
+                $stopwatch->lap('interaction');
+            }
+            $intEvent = $stopwatch->stop('interaction');
 
-        $result = $code['initializer']();
-        $stopwatch->start('interaction');
-
-        for ($i = 0; $i < $interactions; $i++) {
-            $code['code']($result, $i);
-            $stopwatch->lap('interaction');
+            $this->results[$sample->getName()] = $intEvent;
         }
-        $intEvent = $stopwatch->stop('interaction');
+    }
 
-        return $intEvent;
+    private function warmup()
+    {
+        foreach ($this->samples as $sample) {
+            $result = $sample->run();
+            $sample->verify($result);
+        }
     }
 }

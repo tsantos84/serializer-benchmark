@@ -5,6 +5,7 @@
         }
     },
     "require": {
+        "php": "^7.1",
         "jms/serializer": "^1.7",
         "symfony/stopwatch": "^3.3",
         "symfony/serializer": "^3.3",

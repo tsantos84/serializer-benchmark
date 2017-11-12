@@ -1,8 +1,8 @@
-Benchmark/Benchmark/Person:
+TSantos\Benchmark\Person:
   properties:
     id:
       expose: true
-      type: string
+      type: integer
     name:
       expose: true
       type: string
@@ -12,6 +12,6 @@ Benchmark/Benchmark/Person:
     favoriteColors:
       expose: true
       type: array<string>
-    Mother:
+    mother:
       expose: true
-      type: Benchmark/Benchmark/Person
+      type: TSantos\Benchmark\Person

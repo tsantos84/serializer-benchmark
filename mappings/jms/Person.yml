@@ -1,12 +1,19 @@
-Benchmark/Benchmark/Person:
+TSantos\Benchmark\Person:
+  exclusion_policy: ALL
   properties:
     id:
       type: integer
+      expose: true
     name:
       type: string
+      expose: true
     married:
       type: boolean
+      expose: true
     favoriteColors:
       type: array<string>
-    Mother:
-      type: Benchmark/Benchmark/Person
+      expose: true
+      serialized_name: favoriteColors
+    mother:
+      type: TSantos\Benchmark\Person
+      expose: true
