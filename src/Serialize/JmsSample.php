@@ -39,7 +39,7 @@ class JmsSample extends SerializeBenchmarkSample
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
             ->setCacheDir(__DIR__ . '/../../cache/jms')
-            ->addMetadataDir(__DIR__ . '/../../mappings/jms', 'Benchmark\\Benchmark')
+            ->addMetadataDir(__DIR__ . '/../../mappings/jms', 'TSantos\\Benchmark')
             ->build();
     }
 
