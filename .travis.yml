@@ -1,0 +1,18 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+matrix:
+  include:
+    - php: 7.1
+  fast_finish: true
+
+install:
+  - composer install -a --no-dev
+
+script:
+  - php app.php 100
