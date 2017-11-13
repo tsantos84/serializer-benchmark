@@ -71,6 +71,6 @@ JSON;
 
     final public function getName() : string
     {
-        return '[unserialization] ' . $this->getSampleName();
+        return $this->getSampleName();
     }
 }
