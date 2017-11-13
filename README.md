@@ -14,7 +14,7 @@ support different formats, added magic and other stuff, but for the sake of simp
 to fit all of them. Each benchmarked sample includes verification code, which checks wether serialization/deserialization
 result is actually valid.
 
-The [core of benchmarking set](https://github.com/tsantos84/serializers-benchmarking) was implemented by [Tales Santos](https://github.com/tsantos84), the author of 
+The [core of benchmarking set](https://github.com/tsantos84/serializers-benchmarking) was implemented by [Tales Santos](https://github.com/tsantos84), the author of
 [TSantos serializer](https://github.com/tsantos84/serializer).
 
 ## Metodology
@@ -29,7 +29,7 @@ To get a accurate result all serializers were optmized for production environmen
 ### Clone this repository in your workspace
 
 ```bash
-git clone https://github.com/tsantos84/serializers-benchmarking.git 
+git clone https://github.com/tsantos84/serializers-benchmarking.git
 ```
 
 ### Install the application's dependencies
@@ -48,16 +48,16 @@ docker run --rm --interactive --tty -v $(pwd):/app composer install -a --no-dev
 
 ## Execution
 
-The benchmark application can be executed as is with PHP 7.1 and above. 
+The benchmark application can be executed as is with PHP 7.1 and above.
 
 ```bash
-php ./app.php 100
+php app -i 200
 ```
 
 If you don't have PHP of required version you may use suitable Docker PHP image (PHP 7.1-cli-alpine).
 
 ```bash
-docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli-alpine php app.php 100
+docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli-alpine php app -i 100
 ```
 
 ## Results
