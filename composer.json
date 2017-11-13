@@ -12,6 +12,7 @@
         "symfony/property-access": "^3.3",
         "tsantos/serializer": "dev-master",
         "doctrine/cache": "^1.6",
-        "opensoft/simple-serializer": "^1.1"
+        "opensoft/simple-serializer": "^1.1",
+        "symfony/console": "^3.3"
     }
 }
