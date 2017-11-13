@@ -15,4 +15,6 @@ install:
   - composer install -a --no-dev
 
 script:
-  - php app.php 100
+  - php app vendors
+  - php app serialize -i 100
+  - php app deserialize -i 100

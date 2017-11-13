@@ -66,6 +66,6 @@ abstract class SerializeBenchmarkSample extends BenchmarkSample
 
     final public function getName() : string
     {
-        return '[serialization] ' . $this->getSampleName();
+        return $this->getSampleName();
     }
 }
