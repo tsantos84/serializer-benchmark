@@ -26,12 +26,26 @@ class VendorsCommand extends Command
         $style = new SymfonyStyle($input, $output);
 
         $rows = [
-            ['tsantos', '✓', '✕'],
-            ['symfony', '✓', '✓'],
-            ['jms', '✓', '✓'],
-            ['simple serializer', '✓', '✓']
+            ['tsantos', '✓', '✕', $this->getVersion('tsantos/serializer')],
+            ['symfony', '✓', '✓', $this->getVersion('symfony/serializer')],
+            ['jms', '✓', '✓', $this->getVersion('jms/serializer')],
+            ['simple serializer', '✓', '✓', $this->getVersion('opensoft/simple-serializer')]
         ];
 
-        $style->table(['name', 'serialization', 'deserialization'], $rows);
+        $style->table(['name', 'serialization', 'deserialization', 'version'], $rows);
+    }
+
+    private function getVersion(string $package): string
+    {
+        $file = file_get_contents(__DIR__ . '/../../../composer.lock');
+        $json = json_decode($file, true);
+
+        foreach ($json['packages'] as $pck) {
+            if ($pck['name'] === $package) {
+                return $pck['version'];
+            }
+        }
+
+        return 'N/A';
     }
 }
