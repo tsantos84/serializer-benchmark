@@ -57,7 +57,7 @@ php app -i 200
 If you don't have PHP of required version you may use suitable Docker PHP image (PHP 7.1-cli-alpine).
 
 ```bash
-docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli-alpine php app -i 100
+docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli-alpine php app serialize -i 100
 ```
 
 ## Results
