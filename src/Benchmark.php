@@ -31,22 +31,22 @@ class Benchmark
         }, $this->samples);
     }
 
-    public function run(int $interactions) : array
+    public function run(int $interactions, int $batchCount) : array
     {
         $this->warmup();
-        $this->doRun($interactions);
+        $this->doRun($interactions, $batchCount);
 
         return $this->results;
     }
 
-    private function doRun(int $interactions)
+    private function doRun(int $interactions, int $batchCount)
     {
         foreach ($this->samples as $sample) {
             $stopwatch = new Stopwatch();
 
             $stopwatch->start('interaction');
             for ($i = 0; $i < $interactions; $i++) {
-                $sample->run($i);
+                $sample->run($i, $batchCount);
                 $stopwatch->lap('interaction');
             }
             $intEvent = $stopwatch->stop('interaction');
