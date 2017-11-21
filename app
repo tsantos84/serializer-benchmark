@@ -10,6 +10,8 @@ use TSantos\Benchmark\Console\Helper\ResultHelper;
 
 require __DIR__ . '/vendor/autoload.php';
 
+ini_set('memory_limit', '1024M');
+
 $application = new Application('Serializer Benchmarker');
 $application->setHelperSet(new HelperSet([
     new ResultHelper()
