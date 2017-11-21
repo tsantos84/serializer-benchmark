@@ -51,7 +51,7 @@ docker run --rm --interactive --tty -v $(pwd):/app composer install -a --no-dev
 The benchmark application can be executed as is with PHP 7.1 and above.
 
 ```bash
-php app -i 200
+php app serialize -i 100
 ```
 
 If you don't have PHP of required version you may use suitable Docker PHP image (PHP 7.1-cli-alpine).
