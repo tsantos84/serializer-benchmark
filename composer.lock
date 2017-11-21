@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "75a4784ec27f68b9f7a62a45ec1f527f",
+    "content-hash": "44c736bcee16487c2d3a068cc43e7347",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -667,16 +667,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.3.11",
+            "version": "v3.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "fd684d68f83568d8293564b4971928a2c4bdfc5c"
+                "reference": "63cd7960a0a522c3537f6326706d7f3b8de65805"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/fd684d68f83568d8293564b4971928a2c4bdfc5c",
-                "reference": "fd684d68f83568d8293564b4971928a2c4bdfc5c",
+                "url": "https://api.github.com/repos/symfony/console/zipball/63cd7960a0a522c3537f6326706d7f3b8de65805",
+                "reference": "63cd7960a0a522c3537f6326706d7f3b8de65805",
                 "shasum": ""
             },
             "require": {
@@ -731,11 +731,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:16:22+00:00"
+            "time": "2017-11-16T15:24:32+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.11",
+            "version": "v3.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
@@ -791,7 +791,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v3.3.11",
+            "version": "v3.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -966,7 +966,7 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v3.3.11",
+            "version": "v3.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
@@ -1034,7 +1034,7 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v3.3.11",
+            "version": "v3.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
@@ -1112,7 +1112,7 @@
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v3.3.11",
+            "version": "v3.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
@@ -1161,7 +1161,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.11",
+            "version": "v3.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
@@ -1216,16 +1216,16 @@
         },
         {
             "name": "tsantos/serializer",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tsantos84/serializer.git",
-                "reference": "328e1daaed396e3cabdb8c8bbb4cef3b6266a30b"
+                "reference": "501e3707bed90c3ae75e6e970ac8b27b4f2dd102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tsantos84/serializer/zipball/328e1daaed396e3cabdb8c8bbb4cef3b6266a30b",
-                "reference": "328e1daaed396e3cabdb8c8bbb4cef3b6266a30b",
+                "url": "https://api.github.com/repos/tsantos84/serializer/zipball/501e3707bed90c3ae75e6e970ac8b27b4f2dd102",
+                "reference": "501e3707bed90c3ae75e6e970ac8b27b4f2dd102",
                 "shasum": ""
             },
             "require": {
@@ -1234,6 +1234,9 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.2"
+            },
+            "suggest": {
+                "symfony/yaml": "Allow to use Yaml format to define class metadata"
             },
             "type": "library",
             "autoload": {
@@ -1251,20 +1254,19 @@
                     "email": "tales.augusto.santos@gmail.com"
                 }
             ],
-            "description": "Serializer component for PHP",
+            "description": "Object (de)serializer component for PHP",
             "keywords": [
+                "data-transformation",
                 "metadata",
                 "serializer"
             ],
-            "time": "2017-07-17T01:43:10+00:00"
+            "time": "2017-11-21T01:18:19+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "tsantos/serializer": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -1,0 +1,13 @@
+TSantos\Benchmark\Person:
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    married:
+      type: boolean
+    favoriteColors:
+      type: array<string>
+      exposedAs: favoriteColors
+    mother:
+      type: TSantos\Benchmark\Person

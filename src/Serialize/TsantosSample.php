@@ -24,10 +24,11 @@ declare(strict_types=1);
 
 namespace TSantos\Benchmark\Serialize;
 
-use TSantos\Benchmark\Person;
-use TSantos\Serializer\Metadata\Driver\ArrayDriver;
+use Metadata\Driver\FileLocator;
+use TSantos\Serializer\Metadata\Driver\YamlDriver;
 use TSantos\Serializer\SerializationContext;
 use TSantos\Serializer\SerializerBuilder;
+use TSantos\Serializer\TypeGuesser;
 
 class TsantosSample extends SerializeBenchmarkSample
 {
@@ -35,25 +36,11 @@ class TsantosSample extends SerializeBenchmarkSample
 
     public function __construct()
     {
+        $fileLocator = new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../../mappings/tsantos']);
+
         $this->serializer = (new SerializerBuilder())
-            ->setMetadataDriver(new ArrayDriver([
-                Person::class => [
-                    'properties' => [
-                        'id' => [],
-                        'name' => [],
-                        'married' => [
-                            'getter' => 'isMarried'
-                        ],
-                        'favoriteColors' => [
-                            'type' => 'array<string>'
-                        ],
-                        'mother' => [
-                            'type' => Person::class
-                        ]
-                    ]
-                ]
-            ]))
-            ->setCacheDir(__DIR__ . '/../../cache/tsantos')
+            ->setMetadataDriver(new YamlDriver($fileLocator, new TypeGuesser()))
+            ->setSerializerClassDir(__DIR__ . '/../../cache/tsantos')
             ->setDebug(false)
             ->build();
     }
