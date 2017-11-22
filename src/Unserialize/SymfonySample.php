@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace TSantos\Benchmark\Unserialize;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Serializer;
 use TSantos\Benchmark\Person;
+use TSantos\Benchmark\Unserialize\Symfony\PersonDenormalizer;
 
 class SymfonySample extends UnserializeBenchmarkSample
 {
@@ -36,13 +37,13 @@ class SymfonySample extends UnserializeBenchmarkSample
     public function __construct()
     {
         $encoders = array(new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
+        $normalizers = array(new PersonDenormalizer(), new ArrayDenormalizer());
         $this->serializer = new Serializer($normalizers, $encoders);
     }
 
     protected function unserialize(string $json)
     {
-        return $this->serializer->deserialize($json, Person::class, 'json');
+        return $this->serializer->deserialize($json, Person::class.'[]', 'json');
     }
 
     public function getSampleName() : string

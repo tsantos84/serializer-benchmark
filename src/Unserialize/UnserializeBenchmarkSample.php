@@ -32,29 +32,34 @@ abstract class UnserializeBenchmarkSample extends BenchmarkSample
     abstract protected function unserialize(string $json);
     abstract protected function getSampleName() : string;
 
-    public function run(?int $iteration = 0)
+    public function run(?int $iteration = 0, ?int $batchCount = 1)
     {
-        $json = <<<JSON
-            {
-                "id":0,
-                "name":"Foo ",
-                "mother":{
-                    "id":0,
-                    "name":"Foo's mother",
-                    "mother":null,
-                    "married":false,
-                    "favoriteColors":["blue","violet"]
-                },
-                "married":true,
-                "favoriteColors":["blue","red"]
-            }
+        $jsons = [];
+        for ($i = 0; $i < $batchCount; $i++) {
+            $jsons[] = <<<JSON
+                {
+                    "id":${iteration},
+                    "name":"Foo ",
+                    "mother":{
+                        "id":${iteration},
+                        "name":"Foo's mother",
+                        "mother":null,
+                        "married":false,
+                        "favoriteColors":["blue","violet"]
+                    },
+                    "married":true,
+                    "favoriteColors":["blue","red"]
+                }
 JSON;
+        }
+        $json = sprintf('[%s]', implode(',', $jsons));
 
         return $this->unserialize($json);
     }
 
-    public function verify($object)
+    public function verify($objects)
     {
+        $object = reset($objects);
         assert(get_class($object) === Person::class, $this->getName());
         /** @var Person $object */
         assert($object->getId() === 0, $this->getName());
@@ -66,7 +71,7 @@ JSON;
         assert($mother->getName() === 'Foo\'s mother', $this->getName());
         assert($mother->getMarried() === false, $this->getName());
         assert($mother->getFavoriteColors() === ['blue', 'violet'], $this->getName());
-//        assert($mother->getMother() === null, $this->getName()); // Symfony serializer sets an object with nulls
+        assert($mother->getMother() === null, $this->getName()); // Symfony serializer sets an object with nulls
     }
 
     final public function getName() : string

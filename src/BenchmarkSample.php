@@ -32,6 +32,6 @@ namespace TSantos\Benchmark;
 abstract class BenchmarkSample
 {
     abstract public function getName() : string;
-    abstract public function run(?int $iteration = 0);
+    abstract public function run(?int $iteration = 0, ?int $batchCount = 1);
     abstract public function verify($result);
 }

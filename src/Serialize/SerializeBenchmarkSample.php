@@ -32,21 +32,25 @@ abstract class SerializeBenchmarkSample extends BenchmarkSample
     abstract protected function serialize($object) : string;
     abstract protected function getSampleName() : string;
 
-    public function run(?int $iteration = 0) : string
+    public function run(?int $iteration = 0, ?int $batchCount = 1) : string
     {
-        $person = (new Person())
-            ->setId($iteration)
-            ->setName('Foo ')
-            ->setMarried(true)
-            ->setFavoriteColors(['blue', 'red'])
-            ->setMother((new Person())
+        $persons = [];
+        for ($i = 0; $i < $batchCount; $i++) {
+            $persons[] = (new Person())
                 ->setId($iteration)
-                ->setName('Foo\'s mother')
-                ->setMarried(false)
-                ->setFavoriteColors(['blue', 'violet'])
-            );
+                ->setName('Foo ')
+                ->setMarried(true)
+                ->setFavoriteColors(['blue', 'red'])
+                ->setMother(
+                    (new Person())
+                        ->setId($iteration)
+                        ->setName('Foo\'s mother')
+                        ->setMarried(false)
+                        ->setFavoriteColors(['blue', 'violet'])
+                );
+        }
 
-        return $this->serialize($person);
+        return $this->serialize($batchCount === 1 ? reset($persons) : $persons);
     }
 
     public function verify($result)

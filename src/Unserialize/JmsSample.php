@@ -45,7 +45,7 @@ class JmsSample extends UnserializeBenchmarkSample
 
     protected function unserialize(string $json)
     {
-        return $this->serializer->deserialize($json, Person::class, 'json');
+        return $this->serializer->deserialize($json, 'array<' . Person::class . '>', 'json');
     }
 
     public function getSampleName() : string
