@@ -27,7 +27,7 @@ class DeserializeCommand extends Command
         $this
             ->setName('deserialize')
             ->setDescription('Benchmarks the deserialization process')
-            ->addOption('samples', 's', InputOption::VALUE_REQUIRED, 'Amount of deserialization each vendor will perform', 100)
+            ->addOption('samples', 's', InputOption::VALUE_REQUIRED, 'Amount of samples the application will perform', 100)
             ->addOption('batch-count', 'b', InputOption::VALUE_REQUIRED, 'Quantity of objects per each deserialization', 1)
             ->addOption('exclude', 'e', InputOption::VALUE_IS_ARRAY|InputOption::VALUE_REQUIRED, 'Exclude a vendor from benchmark');
     }

@@ -28,7 +28,7 @@ class SerializeCommand extends Command
         $this
             ->setName('serialize')
             ->setDescription('Benchmarks the serialization process')
-            ->addOption('samples', 's', InputOption::VALUE_REQUIRED, 'Amount of serializations each vendor will perform', 100)
+            ->addOption('samples', 's', InputOption::VALUE_REQUIRED, 'Amount of samples the application will perform', 100)
             ->addOption('batch-count', 'b', InputOption::VALUE_REQUIRED, 'Quantity of objects per each serialization', 1)
             ->addOption('exclude', 'e', InputOption::VALUE_IS_ARRAY|InputOption::VALUE_REQUIRED, 'Exclude a vendor from benchmark');
     }
