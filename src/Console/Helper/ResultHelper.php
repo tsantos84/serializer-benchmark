@@ -36,12 +36,10 @@ class ResultHelper implements HelperInterface
 
         /** @var StopwatchEvent $event */
         foreach ($result as $vendor => $event) {
-            $memory = sprintf('%.2F', $event->getMemory() / 1024 / 1024);
             $averageDuration = round($event->getDuration() / count($event->getPeriods()), 2);
             $rows[$vendor] = [
                 'vendor' => $vendor,
                 'duration' => $averageDuration,
-                'memory' => $memory
             ];
         }
 

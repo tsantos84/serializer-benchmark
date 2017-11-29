@@ -66,6 +66,6 @@ class SerializeCommand extends Command
 
         $result = $this->benchmark->run($samples, $batchCount);
 
-        $style->table(['vendor', 'duration (ms)', 'memory (MiB)'], $this->getHelper('result')->sort($result));
+        $style->table(['vendor', 'duration (ms)'], $this->getHelper('result')->sort($result));
     }
 }
