@@ -17,5 +17,5 @@ install:
 
 script:
   - php app vendors
-  - php app serialize -i 100
-  - php app deserialize -i 100
+  - php app serialize -s 100 -b 100
+  - php app deserialize -s 100 -b 100

@@ -28,7 +28,7 @@ class SerializeCommand extends Command
         $this
             ->setName('serialize')
             ->setDescription('Benchmarks the serialization process')
-            ->addOption('interactions', 'i', InputOption::VALUE_REQUIRED, 'Amount of serializations each vendor will perform', 100)
+            ->addOption('samples', 's', InputOption::VALUE_REQUIRED, 'Amount of samples the application will perform', 100)
             ->addOption('batch-count', 'b', InputOption::VALUE_REQUIRED, 'Quantity of objects per each serialization', 1)
             ->addOption('exclude', 'e', InputOption::VALUE_IS_ARRAY|InputOption::VALUE_REQUIRED, 'Exclude a vendor from benchmark');
     }
@@ -58,14 +58,14 @@ class SerializeCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $interactions = $input->getOption('interactions');
+        $samples = $input->getOption('samples');
         $batchCount = $input->getOption('batch-count');
 
         $style = new SymfonyStyle($input, $output);
-        $style->title(sprintf('Performing <info>%d</info> serialization interactions, <info>%d</info> objects each', $interactions, $batchCount));
+        $style->title(sprintf('Performing <info>%d</info> serialization samples, <info>%d</info> objects each', $samples, $batchCount));
 
-        $result = $this->benchmark->run($interactions, $batchCount);
+        $result = $this->benchmark->run($samples, $batchCount);
 
-        $style->table(['vendor', 'duration (ms)', 'memory (MiB)'], $this->getHelper('result')->sort($result));
+        $style->table(['vendor', 'duration (ms)'], $this->getHelper('result')->sort($result));
     }
 }

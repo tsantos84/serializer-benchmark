@@ -19,8 +19,9 @@ The [core of benchmarking set](https://github.com/tsantos84/serializers-benchmar
 
 ## Metodology
 
-Each benchmark consists of `n` iterations for serialization/deserialization of different instances of same class.
-It is planned to expand test set to include batch processing (e.g. 1 iteration for 1000 objects in array).
+Each benchmark consists of `n` samples (100 by default) for serialization/deserialization of different instances of same
+class (1 instance by default) and calculates average statistics. The amount of objects being processed can be overriden 
+to check performance in more real-world-like conditions (e.g. serialize 10000 objects in array).
 
 To get a accurate result all serializers were optmized for production environment.
 
@@ -57,27 +58,45 @@ php app serialize -i 100
 If you don't have PHP of required version you may use suitable Docker PHP image (PHP 7.1-cli-alpine).
 
 ```bash
-docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli-alpine php app serialize -i 100
+docker run --rm -it -v $(pwd):/opt -w /opt php:7.1-cli-alpine php app serialize
 ```
+
+### Application parameters
+
+There're 3 application commands available:
+  - `serialize` - run serialization benchmark
+  - `deserialize` - run deserialization benchmark
+  - `vendors` - show list of available vendors, their capabilities and versions
+ 
+Each of `serialize` and `deserialize` commands has following options:
+  - `--samples` or `-s` - to define how many samples will be taken (default: 100)
+  - `--batch-count` or `-b` - to define how many objects to be processed per sample (default: 1)
+  - `--exclude` or `-e` - to exclude a vendor from benchmark (multiple values allowed)
+
 
 ## Results
 ### Serialization
 
-| Vendor            | 1 Int. | 100 Int. | 500 Int. | 1k Int. | 10k Int. | 50k Int. |
-|-------------------|--------|----------|----------|---------|----------|----------|
-| JMS               | 0      | 6        | 30       | 53      | 555      | 2660     |
-| Symfony           | 0      | 5        | 22       | 44      | 446      | 2228     |
-| SimpleSerializer  | 0      | 4        | 15       | 32      | 377      | 1666     |
-| TSantos           | 0      | 1        | 8        | 16      | 191      | 942      |
+| Vendor            | 10 Obj.| 100 Obj. | 1k Obj. | 10k Obj. |
+|-------------------|--------|----------|---------|----------|
+| JMS               | 0.52   | 4.51     | 45.86   | 495.83   |
+| Symfony           | 0.59   | 4.43     | 42.89   | 462.02   |
+| TSantos           | 0.18   | 1.6      | 18.18   | 184.14   |
+| SimpleSerializer  | 0.32   | 3.17     | 34.71   | 377.3    |
 
 ### Deserialization
 Sadly, TSantos serializer is only capable of serialization and has no means of deserialization, yet.
 
-| Vendor            | 1 Int. | 100 Int. | 500 Int. | 1k Int. | 10k Int. | 50k Int. |
-|-------------------|--------|----------|----------|---------|----------|----------|
-| JMS               | 0      | 5        | 25       | 48      | 502      | 2463     |
-| Symfony           | 0      | 4        | 18       | 39      | 358      | 1812     |
-| SimpleSerializer  | 0      | 2        | 22       | 45      | 437      | 2190     |
+| Vendor            | 10 Obj.| 100 Obj. | 1k Obj. | 10k Obj. |
+|-------------------|--------|----------|---------|----------|
+| JMS               | 0.64   | 4.28     | 41.16   | 459.64   |
+| Symfony*          | 0.1    | 0.84     | 10.59   | 154.41   |
+| SimpleSerializer  | 0.12   | 0.59     | 6.57    | 96.85    |
+
+* Symfony serializer handles complex object quite poorly with default denormalizers, so creating a custom denormalizer,
+tailored specifically to your business domain, is a [good solution](https://thomas.jarrand.fr/blog/serialization/). It
+allows Symfony serializer to skip all the magic and do what exactly required, which on one hand requires quite a bit of
+[additional coding](blob/master/src/Unserialize/Symfony/PersonDenormalizer.php), but on the other hand gives performance boost.  
 
 ## Development
 
