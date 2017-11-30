@@ -90,7 +90,8 @@ Sadly, TSantos serializer is only capable of serialization and has no means of d
 | Vendor            | 10 Obj.| 100 Obj. | 1k Obj. | 10k Obj. |
 |-------------------|--------|----------|---------|----------|
 | JMS               | 0.64   | 4.28     | 41.16   | 459.64   |
-| Symfony*          | 0.1    | 0.84     | 10.59   | 154.41   |
+| Symfony           | 0.55   | 3.84     | 36.61   | 444.28   |
+| Symfony (custom)* | 0.1    | 0.84     | 10.59   | 154.41   |
 | SimpleSerializer  | 0.12   | 0.59     | 6.57    | 96.85    |
 
 * Symfony serializer handles complex object quite poorly with default denormalizers, so creating a custom denormalizer,
