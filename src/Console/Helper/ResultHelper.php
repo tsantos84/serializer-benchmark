@@ -36,17 +36,11 @@ class ResultHelper implements HelperInterface
 
         /** @var StopwatchEvent $event */
         $fastestDuration = 999999;
-        $slowestDuration = 0;
-        $totalDuration = 0;
         foreach ($result as $vendor => $event) {
             $averageDuration = round($event->getDuration() / count($event->getPeriods()), 2);
-            $totalDuration += $averageDuration;
 
             if ($averageDuration < $fastestDuration) {
                 $fastestDuration = $averageDuration;
-            }
-            if ($averageDuration > $slowestDuration) {
-                $slowestDuration = $averageDuration;
             }
             $rows[$vendor] = [
                 'vendor' => $vendor,
@@ -55,9 +49,7 @@ class ResultHelper implements HelperInterface
         }
         /** @var StopwatchEvent $event */
         foreach ($result as $vendor => $event) {
-            $rows[$vendor]['durationFractionOfTotal'] = round(($rows[$vendor]['duration'] / $totalDuration) * 100, 2);
-            $rows[$vendor]['durationFractionOfFastest'] = round(($rows[$vendor]['duration'] / $fastestDuration) * 100, 2);
-            $rows[$vendor]['durationFractionOfSlowest'] = round(($rows[$vendor]['duration'] / $slowestDuration) * 100, 2);
+            $rows[$vendor]['durationFraction'] = round(($rows[$vendor]['duration'] / $fastestDuration) * 100, 2) - 100;
         }
 
         usort($rows, function ($row1, $row2) {
