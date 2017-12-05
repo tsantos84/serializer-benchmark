@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace TSantos\Benchmark\Serialize;
 
+use Assert\Assertion;
 use TSantos\Benchmark\BenchmarkSample;
 use TSantos\Benchmark\Person;
 
@@ -53,19 +54,24 @@ abstract class SerializeBenchmarkSample extends BenchmarkSample
         return $this->serialize($batchCount === 1 ? reset($persons) : $persons);
     }
 
+    /**
+     * @param $result
+     * @throws \Assert\AssertionFailedException
+     */
     public function verify($result)
     {
         $object = json_decode($result, true);
-        assert($object['id'] === 0, $this->getName());
-        assert($object['name'] === 'Foo ', $this->getName());
-        assert($object['married'] === true, $this->getName());
-        assert($object['favoriteColors'] === ['blue', 'red'], $this->getName());
-        assert(is_array($object['mother']), $this->getName());
-        assert($object['mother']['id'] === $object['id'], $this->getName());
-        assert($object['mother']['name'] === 'Foo\'s mother', $this->getName());
-        assert($object['mother']['married'] === false, $this->getName());
-        assert($object['mother']['favoriteColors'] === ['blue', 'violet'], $this->getName());
-        assert(array_key_exists('mother', $object['mother']), $this->getName());
+        Assertion::isArray($object);
+        Assertion::eq($object['id'], 0);
+        Assertion::eq($object['name'], 'Foo ');
+        Assertion::true($object['married']);
+        Assertion::eq($object['favoriteColors'], ['blue', 'red']);
+        Assertion::isArray($object['mother']);
+        Assertion::eq($object['mother']['id'], $object['id']);
+        Assertion::eq($object['mother']['name'], 'Foo\'s mother');
+        Assertion::false($object['mother']['married'], false);
+        Assertion::eq($object['mother']['favoriteColors'], ['blue', 'violet']);
+        Assertion::keyExists($object['mother'], 'mother');
     }
 
     final public function getName() : string
