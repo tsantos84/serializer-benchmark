@@ -13,6 +13,7 @@
         "tsantos/serializer": "^1.0",
         "doctrine/cache": "^1.6",
         "opensoft/simple-serializer": "^1.1",
-        "symfony/console": "^3.3"
+        "symfony/console": "^3.3",
+        "beberlei/assert": "^2.8"
     }
 }
