@@ -29,7 +29,6 @@ use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use TSantos\Benchmark\Person;
-use TSantos\Benchmark\Unserialize\Symfony\PersonDenormalizer;
 
 class SymfonySample extends UnserializeBenchmarkSample
 {
@@ -50,5 +49,29 @@ class SymfonySample extends UnserializeBenchmarkSample
     public function getSampleName() : string
     {
         return 'symfony';
+    }
+
+    /**
+     * Symfony serializer creates an object initialized with nulls if it was given null,
+     * thus `parent` field is not null here
+     *
+     * @param $objects
+     */
+    public function verify($objects)
+    {
+        $object = reset($objects);
+        assert(get_class($object) === Person::class, $this->getName());
+        /** @var Person $object */
+        assert($object->getId() === 0, $this->getName());
+        assert($object->getName() === 'Foo ', $this->getName());
+        assert($object->isMarried() === true, $this->getName());
+        assert($object->getFavoriteColors() === ['blue', 'red'], $this->getName());
+        assert(is_object($mother = $object->getMother()), $this->getName());
+        assert($mother->getId() === $object->getId(), $this->getName());
+        assert($mother->getName() === 'Foo\'s mother', $this->getName());
+        assert($mother->getMarried() === false, $this->getName());
+        assert($mother->getFavoriteColors() === ['blue', 'violet'], $this->getName());
+
+        assert($mother->getMother() instanceof Person, $this->getName());
     }
 }

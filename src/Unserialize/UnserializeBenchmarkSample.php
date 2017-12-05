@@ -71,7 +71,6 @@ JSON;
         assert($mother->getName() === 'Foo\'s mother', $this->getName());
         assert($mother->getMarried() === false, $this->getName());
         assert($mother->getFavoriteColors() === ['blue', 'violet'], $this->getName());
-        assert($mother->getMother() === null, $this->getName()); // Symfony serializer sets an object with nulls
     }
 
     final public function getName() : string
