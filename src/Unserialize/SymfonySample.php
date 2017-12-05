@@ -24,12 +24,12 @@ declare(strict_types=1);
 
 namespace TSantos\Benchmark\Unserialize;
 
+use Assert\Assertion;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use TSantos\Benchmark\Person;
-use TSantos\Benchmark\Unserialize\Symfony\PersonDenormalizer;
 
 class SymfonySample extends UnserializeBenchmarkSample
 {
@@ -50,5 +50,29 @@ class SymfonySample extends UnserializeBenchmarkSample
     public function getSampleName() : string
     {
         return 'symfony';
+    }
+
+    /**
+     * Symfony serializer creates an object initialized with nulls if it was given null,
+     * thus `parent` field is not null here
+     *
+     * @param $objects
+     * @throws \Assert\AssertionFailedException
+     */
+    public function verify($objects)
+    {
+        $object = reset($objects);
+        Assertion::isInstanceOf($object, Person::class, $this->getName() . ': object expected to be of Person class');
+        /** @var Person $object */
+        Assertion::eq($object->getId(), 0, $this->getName() . ': object id mismatch');
+        Assertion::eq($object->getName(), 'Foo ', $this->getName() . ': object name mismatch');
+        Assertion::true($object->isMarried(), $this->getName() . ': object marriage status mismatch');
+        Assertion::eq($object->getFavoriteColors(), ['blue', 'red'], $this->getName() . ': object favorite colors mismatch');
+        Assertion::isInstanceOf($mother = $object->getMother(), Person::class, $this->getName() . ': object\'s parent expected to be of Person class');
+        Assertion::eq($mother->getId(), $object->getId(), $this->getName() . ': object\'s parent id mismatch');
+        Assertion::eq($mother->getName(), 'Foo\'s mother', $this->getName() . ': object\'s parent name mismatch');
+        Assertion::false($mother->getMarried(), false, $this->getName() . ': object\'s parent marriage status mismatch');
+        Assertion::eq($mother->getFavoriteColors(), ['blue', 'violet'], $this->getName() . ': object\'s parent favorite colors mismatch');
+        Assertion::isInstanceOf($mother->getMother(), Person::class, $this->getName() . ': object expected to be of Person class');
     }
 }
