@@ -64,9 +64,9 @@ JSON;
      */
     public function verify($objects)
     {
+        /** @var Person $object */
         $object = reset($objects);
         Assertion::isInstanceOf($object, Person::class, $this->getName() . ': object expected to be of Person class');
-        /** @var Person $object */
         Assertion::eq($object->getId(), 0, $this->getName() . ': object id mismatch');
         Assertion::eq($object->getName(), 'Foo ', $this->getName() . ': object name mismatch');
         Assertion::true($object->isMarried(), $this->getName() . ': object marriage status mismatch');

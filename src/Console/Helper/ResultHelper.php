@@ -35,12 +35,21 @@ class ResultHelper implements HelperInterface
         $rows = [];
 
         /** @var StopwatchEvent $event */
+        $fastestDuration = 999999;
         foreach ($result as $vendor => $event) {
             $averageDuration = round($event->getDuration() / count($event->getPeriods()), 2);
+
+            if ($averageDuration < $fastestDuration) {
+                $fastestDuration = $averageDuration;
+            }
             $rows[$vendor] = [
                 'vendor' => $vendor,
                 'duration' => $averageDuration,
             ];
+        }
+        /** @var StopwatchEvent $event */
+        foreach ($result as $vendor => $event) {
+            $rows[$vendor]['durationFraction'] = round(($rows[$vendor]['duration'] / $fastestDuration) * 100, 2) - 100;
         }
 
         usort($rows, function ($row1, $row2) {
