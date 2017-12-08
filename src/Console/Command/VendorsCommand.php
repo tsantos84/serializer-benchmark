@@ -29,7 +29,8 @@ class VendorsCommand extends Command
             ['tsantos', '✓', '✕', $this->getVersion('tsantos/serializer')],
             ['symfony', '✓', '✓', $this->getVersion('symfony/serializer')],
             ['jms', '✓', '✓', $this->getVersion('jms/serializer')],
-            ['simple serializer', '✓', '✓', $this->getVersion('opensoft/simple-serializer')]
+            ['simple serializer', '✓', '✓', $this->getVersion('opensoft/simple-serializer')],
+            ['zumba json serializer', '✓', '✓', $this->getVersion('zumba/json-serializer')],
         ];
 
         $style->table(['name', 'serialization', 'deserialization', 'version'], $rows);
