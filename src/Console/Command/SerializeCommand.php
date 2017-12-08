@@ -11,6 +11,7 @@ use TSantos\Benchmark\Serialize\JmsSample;
 use TSantos\Benchmark\Serialize\SimpleSerializerSample;
 use TSantos\Benchmark\Serialize\SymfonySample;
 use TSantos\Benchmark\Serialize\TsantosSample;
+use TSantos\Benchmark\Serialize\ZumbaJsonSerializerSample;
 use TSantos\Benchmark\Benchmark;
 
 /**
@@ -53,6 +54,10 @@ class SerializeCommand extends Command
 
         if (!in_array('simple_serializer', $excludes)) {
             $this->benchmark->addSample(new SimpleSerializerSample());
+        }
+
+        if (!in_array('zumba_json_serializer', $excludes)) {
+            $this->benchmark->addSample(new ZumbaJsonSerializerSample());
         }
     }
 

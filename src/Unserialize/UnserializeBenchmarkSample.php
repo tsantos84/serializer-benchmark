@@ -39,9 +39,11 @@ abstract class UnserializeBenchmarkSample extends BenchmarkSample
         for ($i = 0; $i < $batchCount; $i++) {
             $jsons[] = <<<JSON
                 {
+                    "@type":"TSantos\\\Benchmark\\\Person",
                     "id":${iteration},
                     "name":"Foo ",
                     "mother":{
+                        "@type":"TSantos\\\Benchmark\\\Person",
                         "id":${iteration},
                         "name":"Foo's mother",
                         "mother":null,
