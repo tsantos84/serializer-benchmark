@@ -47,7 +47,7 @@ class TsantosSample extends SerializeBenchmarkSample
 
     protected function serialize($object) : string
     {
-        return $this->serializer->serialize($object, 'json', (new SerializationContext())->setSerializeNull(true));
+        return $this->serializer->serialize($object, (new SerializationContext())->setSerializeNull(true));
     }
 
     public function getSampleName() : string

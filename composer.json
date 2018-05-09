@@ -7,14 +7,20 @@
     "require": {
         "php": "^7.1",
         "jms/serializer": "^1.7",
-        "symfony/stopwatch": "^3.3",
-        "symfony/serializer": "^3.3",
-        "symfony/property-access": "^3.3",
-        "tsantos/serializer": "^1.0",
+        "symfony/stopwatch": "^4.0",
+        "symfony/serializer": "^4.0",
+        "symfony/property-access": "^4.0",
+        "tsantos/serializer": "*@dev",
         "doctrine/cache": "^1.6",
         "opensoft/simple-serializer": "^1.1",
-        "symfony/console": "^3.3",
+        "symfony/console": "^4.0",
         "beberlei/assert": "^2.8",
         "zumba/json-serializer": "^2.1"
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../serializer"
+        }
+    ]
 }
