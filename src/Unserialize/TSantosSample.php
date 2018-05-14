@@ -34,6 +34,7 @@ declare(strict_types=1);
 namespace TSantos\Benchmark\Unserialize;
 
 use Metadata\Driver\FileLocator;
+use Symfony\Component\Filesystem\Filesystem;
 use TSantos\Benchmark\Person;
 use TSantos\Serializer\Metadata\Driver\YamlDriver;
 use TSantos\Serializer\SerializerBuilder;
@@ -50,12 +51,25 @@ class TSantosSample extends UnserializeBenchmarkSample
     {
         $fileLocator = new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../../mappings/tsantos']);
 
-        $this->serializer = (new SerializerBuilder())
+        $fs = new Filesystem();
+        $fs->remove($path = __DIR__ . '/../../cache/tsantos');
+        $fs->mkdir([$path . '/classes', $path . '/metadata']);
+
+        $builder = (new SerializerBuilder())
             ->setMetadataDriver(new YamlDriver($fileLocator, new TypeGuesser()))
             ->setSerializerClassDir(__DIR__ . '/../../cache/tsantos/classes')
             ->setMetadataCacheDir(__DIR__ . '/../../cache/tsantos/metadata')
-            ->setDebug(false)
-            ->build();
+            ->setDebug(false);
+
+        if (false === $strategy = getenv('SERIALIZER_ACCESSOR_STRATEGY')) {
+            $strategy = 'ACCESSORS';
+        }
+
+        if ('REFLECTION' === $strategy) {
+            $builder->accessThroughReflection();
+        }
+
+        $this->serializer = $builder->build();
     }
 
     protected function unserialize(string $json)
@@ -65,6 +79,6 @@ class TSantosSample extends UnserializeBenchmarkSample
 
     public function getSampleName() : string
     {
-        return 'tsantos_accessors';
+        return 'tsantos';
     }
 }
