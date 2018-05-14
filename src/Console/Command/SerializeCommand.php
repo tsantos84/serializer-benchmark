@@ -10,7 +10,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use TSantos\Benchmark\Serialize\JmsSample;
 use TSantos\Benchmark\Serialize\SimpleSerializerSample;
 use TSantos\Benchmark\Serialize\SymfonySample;
-use TSantos\Benchmark\Serialize\TsantosSample;
+use TSantos\Benchmark\Serialize\TSantosSample;
 use TSantos\Benchmark\Serialize\ZumbaJsonSerializerSample;
 use TSantos\Benchmark\Benchmark;
 
@@ -49,7 +49,7 @@ class SerializeCommand extends Command
         }
 
         if (!in_array('tsantos', $excludes)) {
-            $this->benchmark->addSample(new TsantosSample());
+            $this->benchmark->addSample(new TSantosSample());
         }
 
         if (!in_array('simple_serializer', $excludes)) {

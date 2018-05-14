@@ -15,7 +15,8 @@
         "opensoft/simple-serializer": "^1.1",
         "symfony/console": "^4.0",
         "beberlei/assert": "^2.8",
-        "zumba/json-serializer": "^2.1"
+        "zumba/json-serializer": "^2.1",
+        "symfony/filesystem": "^4.0"
     },
     "repositories": [
         {
