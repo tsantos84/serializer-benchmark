@@ -26,7 +26,7 @@ class VendorsCommand extends Command
         $style = new SymfonyStyle($input, $output);
 
         $rows = [
-            ['tsantos', '✓', '✕', $this->getVersion('tsantos/serializer')],
+            ['tsantos', '✓', '✓', $this->getVersion('tsantos/serializer')],
             ['symfony', '✓', '✓', $this->getVersion('symfony/serializer')],
             ['jms', '✓', '✓', $this->getVersion('jms/serializer')],
             ['simple serializer', '✓', '✓', $this->getVersion('opensoft/simple-serializer')],
