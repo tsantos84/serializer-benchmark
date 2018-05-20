@@ -47,6 +47,7 @@ class TSantosSample extends SerializeBenchmarkSample
             ->setMetadataDriver(new YamlDriver($fileLocator, new TypeGuesser()))
             ->setSerializerClassDir(__DIR__ . '/../../cache/tsantos/classes')
             ->setMetadataCacheDir(__DIR__ . '/../../cache/tsantos/metadata')
+            ->enableBuiltInNormalizers()
             ->setDebug(false);
 
         if (false === $strategy = getenv('SERIALIZER_ACCESSOR_STRATEGY')) {
