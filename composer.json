@@ -8,7 +8,7 @@
         "php": "^7.1",
         "jms/serializer": "^1.7",
         "symfony/serializer": "^4.0",
-        "tsantos/serializer": "dev-develop",
+        "tsantos/serializer": "*@dev",
         "beberlei/assert": "^2.8",
         "zumba/json-serializer": "^2.1",
         "phpbench/phpbench": "@dev",
