@@ -1,0 +1,17 @@
+{
+    "bootstrap": "vendor/autoload.php",
+    "path": "src/Bench",
+    "time_unit": "milliseconds",
+    "php_disable_ini": true,
+    "php_config": {
+        "extension": [ "json.so" ]
+    },
+    "reports": {
+        "tsantos": {
+            "generator": "table",
+            "cols": [ "suite", "benchmark", "subject", "mean", "diff" ],
+            "sort": {"mean": "asc"},
+            "pretty_params": true
+        }
+    }
+}

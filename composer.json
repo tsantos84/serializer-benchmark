@@ -7,21 +7,14 @@
     "require": {
         "php": "^7.1",
         "jms/serializer": "^1.7",
-        "symfony/stopwatch": "^4.0",
         "symfony/serializer": "^4.0",
-        "symfony/property-access": "^4.0",
-        "tsantos/serializer": "*@dev",
-        "doctrine/cache": "^1.6",
-        "opensoft/simple-serializer": "^1.1",
-        "symfony/console": "^4.0",
+        "tsantos/serializer": "dev-develop",
         "beberlei/assert": "^2.8",
         "zumba/json-serializer": "^2.1",
-        "symfony/filesystem": "^4.0"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../serializer"
-        }
-    ]
+        "phpbench/phpbench": "@dev",
+        "symfony/yaml": "^4.0",
+        "symfony/filesystem": "^4.0",
+        "symfony/property-access": "^4.0",
+        "doctrine/cache": "^1.7"
+    }
 }

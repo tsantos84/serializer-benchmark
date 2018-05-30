@@ -7,7 +7,7 @@ TSantos\Benchmark\Person:
     married:
       type: boolean
     favoriteColors:
-      type: array<string>
+      type: string[]
       exposedAs: favoriteColors
     mother:
       type: TSantos\Benchmark\Person
