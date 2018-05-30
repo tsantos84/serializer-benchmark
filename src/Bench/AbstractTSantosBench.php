@@ -23,7 +23,7 @@ use TSantos\Serializer\TypeGuesser;
  *
  * @author Tales Santos <tales.augusto.santos@gmail.com>
  */
-abstract class AbstractTsantosBench extends AbstractBench
+abstract class AbstractTSantosBench extends AbstractBench
 {
     /**
      * @var SerializerInterface

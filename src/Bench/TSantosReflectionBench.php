@@ -24,7 +24,7 @@ use TSantos\Serializer\TypeGuesser;
  *
  * @author Tales Santos <tales.augusto.santos@gmail.com>
  */
-class TSantosReflectionBench extends AbstractTsantosBench
+class TSantosReflectionBench extends AbstractTSantosBench
 {
     protected function configure(SerializerBuilder $builder)
     {
