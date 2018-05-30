@@ -16,5 +16,10 @@
         "symfony/filesystem": "^4.0",
         "symfony/property-access": "^4.0",
         "doctrine/cache": "^1.7"
+    },
+    "config": {
+        "preferred-install": {
+            "tsantos/serializer": "source"
+        }
     }
 }
