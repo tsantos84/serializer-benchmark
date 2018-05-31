@@ -5,6 +5,7 @@ This project aims to compare the performance of some most used and few less know
 - [JMS Serializer](http://jmsyst.com/libs/serializer)
 - [Symfony Serializer](https://symfony.com/doc/current/components/serializer.html)
 - [TSantos Serializer](https://github.com/tsantos84/serializer)
+- [Zumba Json Serializer](https://github.com/zumba/json-serializer)
 
 ## Inspiration
 
@@ -59,6 +60,13 @@ There're 2 available benchmark groups:
 
 ```bash
 php vendor/bin/phpbench run --warmup=1 --report=tsantos --groups=serialize
+```
+### Vendors
+
+It is possible to see all the serializer libraries available in this benchmark and its version:
+
+```bash
+php vendor/bin/phpbench vendors
 ```
 
 ### Benchmark Tool
