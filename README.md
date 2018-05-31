@@ -75,7 +75,7 @@ php vendor/bin/phpbench vendors
 This project was written based on [PHPBench](http://phpbench.readthedocs.io/en/latest/index.html). Please,
 refer to its documentation page for further reading about all its runner options.
 
-### Contribution
+## Contribution
 
 Want to see more libraries in this benchmark? You can easily add new benchmarks by implementing the 
 [BenchInterface](https://github.com/tsantos84/serializer-benchmark/blob/master/src/BenchInterface.php) interface 
