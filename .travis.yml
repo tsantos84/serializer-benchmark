@@ -17,5 +17,5 @@ install:
 
 script:
   - php vendor/bin/phpbench vendors
-  - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --revs=10 --interactions=10
-  - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --revs=10 --interactions=10
+  - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --revs=10 --interations=10
+  - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --revs=10 --interations=10
