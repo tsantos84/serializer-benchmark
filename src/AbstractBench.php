@@ -2,6 +2,7 @@
 
 namespace TSantos\Benchmark;
 
+use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use PhpBench\Benchmark\Metadata\Annotations\Groups;
 use PhpBench\Benchmark\Metadata\Annotations\OutputTimeUnit;
@@ -10,10 +11,11 @@ use PhpBench\Benchmark\Metadata\Annotations\OutputTimeUnit;
  * Class AbstractBench
  *
  * @author Tales Santos <tales.augusto.santos@gmail.com>
- * @BeforeMethods({"init", "initObjects", "initContent"})
+ * @BeforeMethods({"bootstrap", "initObjects", "initContent"})
+ * @AfterMethods({"clear"})
  * @OutputTimeUnit("milliseconds", precision=3)
  */
-abstract class AbstractBench
+abstract class AbstractBench implements BenchInterface
 {
     /**
      * @var Person[]
@@ -90,9 +92,14 @@ JSON;
         $this->doBenchDeserialize($this->content);
     }
 
-    abstract public function init();
+    public function clear(): void
+    {
 
-    abstract protected function doBenchSerialize(array $objects);
+    }
 
-    abstract protected function doBenchDeserialize(string $content);
+    abstract public function bootstrap(): void;
+
+    abstract protected function doBenchSerialize(array $objects): void;
+
+    abstract protected function doBenchDeserialize(string $content): void;
 }

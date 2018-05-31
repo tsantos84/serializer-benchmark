@@ -20,18 +20,28 @@ class ZumbaJsonSerializerBench extends AbstractBench
      */
     protected $serializer;
 
-    public function init()
+    public function bootstrap(): void
     {
         $this->serializer = new JsonSerializer();
     }
 
-    protected function doBenchSerialize(array $objects)
+    protected function doBenchSerialize(array $objects): void
     {
         $this->serializer->serialize($objects);
     }
 
-    protected function doBenchDeserialize(string $content)
+    protected function doBenchDeserialize(string $content): void
     {
         $this->serializer->unserialize($content);
+    }
+
+    public function getName(): string
+    {
+        return 'Zumba';
+    }
+
+    public function getPackageName(): string
+    {
+        return 'zumba/json-serializer';
     }
 }

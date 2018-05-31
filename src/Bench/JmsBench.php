@@ -16,7 +16,7 @@ class JmsBench extends AbstractBench
      */
     protected $serializer;
 
-    public function init()
+    public function bootstrap(): void
     {
         $this->serializer = SerializerBuilder::create()
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
@@ -26,13 +26,23 @@ class JmsBench extends AbstractBench
             ->build();
     }
 
-    protected function doBenchSerialize(array $objects)
+    protected function doBenchSerialize(array $objects): void
     {
         $this->serializer->serialize($objects, 'json');
     }
 
-    protected function doBenchDeserialize(string $content)
+    protected function doBenchDeserialize(string $content): void
     {
         $this->serializer->deserialize($content, 'array<' . Person::class . '>', 'json');
+    }
+
+    public function getName(): string
+    {
+        return 'JMS';
+    }
+
+    public function getPackageName(): string
+    {
+        return 'jms/serializer';
     }
 }

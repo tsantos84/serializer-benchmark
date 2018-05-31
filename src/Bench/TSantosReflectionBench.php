@@ -10,14 +10,8 @@
 
 namespace TSantos\Benchmark\Bench;
 
-use Metadata\Driver\FileLocator;
-use Symfony\Component\Filesystem\Filesystem;
-use TSantos\Benchmark\AbstractBench;
 use TSantos\Benchmark\Person;
-use TSantos\Serializer\Metadata\Driver\YamlDriver;
 use TSantos\Serializer\SerializerBuilder;
-use TSantos\Serializer\SerializerInterface;
-use TSantos\Serializer\TypeGuesser;
 
 /**
  * Class TSantosReflectionBench
@@ -26,18 +20,23 @@ use TSantos\Serializer\TypeGuesser;
  */
 class TSantosReflectionBench extends AbstractTSantosBench
 {
-    protected function configure(SerializerBuilder $builder)
+    protected function configure(SerializerBuilder $builder): void
     {
         $builder->accessThroughReflection();
     }
 
-    protected function doBenchSerialize(array $objects)
+    protected function doBenchSerialize(array $objects): void
     {
         $this->serializer->serialize($objects);
     }
 
-    protected function doBenchDeserialize(string $content)
+    protected function doBenchDeserialize(string $content): void
     {
         $this->serializer->deserialize($content, Person::class . '[]');
+    }
+
+    public function getName(): string
+    {
+        return 'TSantos (reflection)';
     }
 }

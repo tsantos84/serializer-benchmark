@@ -16,5 +16,6 @@ install:
   - composer install -a --no-dev
 
 script:
+  - php vendor/bin/phpbench vendors
   - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize
   - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize

@@ -22,20 +22,30 @@ class SymfonyBench extends AbstractBench
      */
     private $serializer;
 
-    public function init()
+    public function bootstrap(): void
     {
         $encoders = array(new JsonEncoder());
         $normalizers = array(new ObjectNormalizer(), new ArrayDenormalizer());
         $this->serializer = new Serializer($normalizers, $encoders);
     }
 
-    protected function doBenchSerialize(array $objects)
+    protected function doBenchSerialize(array $objects): void
     {
         $this->serializer->serialize($objects, 'json');
     }
 
-    protected function doBenchDeserialize(string $content)
+    protected function doBenchDeserialize(string $content): void
     {
         $this->serializer->deserialize($content, Person::class . '[]', 'json');
+    }
+
+    public function getName(): string
+    {
+        return 'Symfony';
+    }
+
+    public function getPackageName(): string
+    {
+        return 'symfony/serializer';
     }
 }

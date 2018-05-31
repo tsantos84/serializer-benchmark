@@ -3,15 +3,18 @@
     "path": "src/Bench",
     "time_unit": "milliseconds",
     "php_disable_ini": true,
+    "progress": "dots",
     "php_config": {
         "extension": [ "json.so" ]
     },
     "reports": {
         "tsantos": {
             "generator": "table",
-            "cols": [ "suite", "benchmark", "subject", "mean", "diff" ],
-            "sort": {"mean": "asc"},
-            "pretty_params": true
+            "cols": [ "suite", "benchmark", "subject", "mean", "diff", "worst", "best", "mem_real" ],
+            "sort": {"mean": "asc"}
         }
-    }
+    },
+    "extensions": [
+        "TSantos\\Benchmark\\TSantosExtension"
+    ]
 }

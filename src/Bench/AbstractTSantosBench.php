@@ -30,18 +30,22 @@ abstract class AbstractTSantosBench extends AbstractBench
      */
     protected $serializer;
 
-    public function init()
+    /**
+     * @var Filesystem
+     */
+    protected $fs;
+
+    public function bootstrap(): void
     {
         $fileLocator = new FileLocator(['TSantos\Benchmark' => __DIR__ . '/../Resources/mappings/tsantos']);
 
-        $fs = new Filesystem();
-        $fs->remove($path = '/tmp/serializer/cache/tsantos');
-        $fs->mkdir([$path . '/classes', $path . '/metadata']);
+        $this->fs = new Filesystem();
+        $this->fs->mkdir(['/tmp/tsantos/classes', '/tmp/tsantos/metadata']);
 
         $builder = (new SerializerBuilder())
             ->setMetadataDriver(new YamlDriver($fileLocator, new TypeGuesser()))
-            ->setSerializerClassDir('/tmp/serializer/cache/tsantos/classes')
-            ->setMetadataCacheDir('/tmp/serializer/cache/tsantos/metadata')
+            ->setSerializerClassDir('/tmp/tsantos/classes')
+            ->setMetadataCacheDir('/tmp/tsantos/metadata')
             ->enableBuiltInNormalizers()
             ->setDebug(false);
 
@@ -50,5 +54,15 @@ abstract class AbstractTSantosBench extends AbstractBench
         $this->serializer = $builder->build();
     }
 
-    abstract protected function configure(SerializerBuilder $builder);
+    public function clear(): void
+    {
+        $this->fs->remove('/tmp/tsantos');
+    }
+
+    abstract protected function configure(SerializerBuilder $builder): void;
+
+    public function getPackageName(): string
+    {
+        return 'tsantos/serializer';
+    }
 }
