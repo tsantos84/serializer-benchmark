@@ -1,4 +1,4 @@
-# Serializer Benchmark [![Build Status](https://travis-ci.org/tsantos84/serializers-benchmarking.svg?branch=master)](https://travis-ci.org/tsantos84/serializers-benchmarking)
+# Serializer Benchmark [![Build Status](https://travis-ci.org/tsantos84/serializer-benchmark.svg?branch=master)](https://travis-ci.org/tsantos84/serializers-benchmarking)
 
 This project aims to compare the performance of some most used and few less known JSON serialization libraries for PHP.
 
