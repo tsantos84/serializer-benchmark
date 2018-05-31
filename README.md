@@ -6,6 +6,7 @@ This project aims to compare the performance of some most used and few less know
 - [Symfony Serializer](https://symfony.com/doc/current/components/serializer.html)
 - [TSantos Serializer](https://github.com/tsantos84/serializer)
 - [Zumba Json Serializer](https://github.com/zumba/json-serializer)
+- [Nil Portugués](https://github.com/nilportugues/php-serializer)
 
 ## Inspiration
 
