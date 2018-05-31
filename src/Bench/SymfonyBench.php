@@ -12,8 +12,7 @@ use TSantos\Benchmark\Person;
 
 /**
  * Class SymfonyBench
- *
- * @author Tales Santos <tales.augusto.santos@gmail.com>
+ * @package TSantos\Benchmark\Bench
  */
 class SymfonyBench extends AbstractBench
 {

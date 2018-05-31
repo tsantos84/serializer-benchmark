@@ -2,19 +2,19 @@
 
 namespace TSantos\Benchmark\Bench;
 
+use NilPortugues\Serializer\JsonSerializer;
 use TSantos\Benchmark\AbstractBench;
-use Zumba\JsonSerializer\JsonSerializer;
 
 /**
- * Class ZumbaJsonSerializerBench
+ * Class NilPortuguesBench
  * @package TSantos\Benchmark\Bench
  */
-class ZumbaJsonSerializerBench extends AbstractBench
+class NilPortuguesBench extends AbstractBench
 {
     /**
      * @var JsonSerializer
      */
-    protected $serializer;
+    private $serializer;
 
     public function bootstrap(): void
     {
@@ -33,11 +33,11 @@ class ZumbaJsonSerializerBench extends AbstractBench
 
     public function getName(): string
     {
-        return 'Zumba';
+        return 'Nil Portugues';
     }
 
     public function getPackageName(): string
     {
-        return 'zumba/json-serializer';
+        return 'nilportugues/serializer';
     }
 }

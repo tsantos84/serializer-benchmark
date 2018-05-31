@@ -9,6 +9,10 @@ use JMS\Serializer\SerializerInterface;
 use TSantos\Benchmark\AbstractBench;
 use TSantos\Benchmark\Person;
 
+/**
+ * Class JmsBench
+ * @package TSantos\Benchmark\Bench
+ */
 class JmsBench extends AbstractBench
 {
     /**
@@ -21,8 +25,8 @@ class JmsBench extends AbstractBench
         $this->serializer = SerializerBuilder::create()
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
-            ->setCacheDir('/tmp/serializer/cache/jms')
-            ->addMetadataDir(__DIR__ . '/../Resources/mappings/jms', 'TSantos\\Benchmark')
+            ->setCacheDir($this->getCacheDir())
+            ->addMetadataDir($this->getResourceDir('/mappings/jms'), 'TSantos\\Benchmark')
             ->build();
     }
 
