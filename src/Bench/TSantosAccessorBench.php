@@ -3,7 +3,6 @@
 namespace TSantos\Benchmark\Bench;
 
 use TSantos\Benchmark\Person;
-use TSantos\Serializer\SerializerBuilder;
 
 /**
  * Class TSantosAccessorBench

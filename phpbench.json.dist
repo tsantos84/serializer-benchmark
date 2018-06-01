@@ -2,11 +2,7 @@
     "bootstrap": "vendor/autoload.php",
     "path": "src/Bench",
     "time_unit": "milliseconds",
-    "php_disable_ini": true,
     "progress": "dots",
-    "php_config": {
-        "extension": [ "json.so" ]
-    },
     "reports": {
         "tsantos": {
             "generator": "table",
@@ -16,5 +12,9 @@
     },
     "extensions": [
         "TSantos\\Benchmark\\TSantosExtension"
-    ]
+    ],
+    "executors": {
+        "microtime": {"executor":"microtime"},
+        "blackfire": {"executor":"blackfire"}
+    }
 }

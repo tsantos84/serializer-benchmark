@@ -20,6 +20,13 @@ class TSantosExtension implements ExtensionInterface
                 $container->getParameter('path')
             );
         }, ['console.command' => []]);
+
+        $container->register('tsantos.blackfire_executor', function (Container $container) {
+            return new BlackfireExecutor(
+                $container->get('benchmark.remote.launcher'),
+                $container->get('benchmark.executor.microtime')
+            );
+        }, ['benchmark_executor' => ['name' => 'blackfire']]);
     }
 
     public function getDefaultConfig()

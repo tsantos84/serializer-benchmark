@@ -2,10 +2,11 @@
 
 namespace TSantos\Benchmark\Symfony;
 
+use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use TSantos\Benchmark\Person;
 
-class PersonDenormalizer implements DenormalizerInterface
+class PersonDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -42,5 +43,10 @@ class PersonDenormalizer implements DenormalizerInterface
     public function supportsDenormalization($data, $type, $format = null)
     {
         return $type === Person::class;
+    }
+
+    public function hasCacheableSupportsMethod(): bool
+    {
+        return true;
     }
 }
