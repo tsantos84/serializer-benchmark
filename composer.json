@@ -23,7 +23,7 @@
         "php": "^7.1",
         "jms/serializer": "^1.7",
         "symfony/serializer": "^4.0",
-        "tsantos/serializer": "*@dev",
+        "tsantos/serializer": "@dev",
         "beberlei/assert": "^2.8",
         "zumba/json-serializer": "^2.1",
         "phpbench/phpbench": "@dev",
@@ -33,11 +33,6 @@
         "doctrine/cache": "^1.7",
         "nilportugues/serializer":"dev-master",
         "blackfire/php-sdk": "^1.14"
-    },
-    "config": {
-        "preferred-install": {
-            "tsantos/serializer": "source"
-        }
     },
     "repositories": [
         {
