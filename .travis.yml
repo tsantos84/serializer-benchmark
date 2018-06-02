@@ -19,6 +19,14 @@ install:
   - composer install -a --no-dev
 
 script:
-  - php vendor/bin/phpbench vendors
-  - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
-  - php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
+  - |
+    # Vendors list
+    php vendor/bin/phpbench vendors
+
+  - |
+    # Performing serialization benchmark
+    php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
+
+  - |
+    # Performing deserialization benchmark
+    php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
