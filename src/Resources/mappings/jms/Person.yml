@@ -11,7 +11,7 @@ TSantos\Benchmark\Person:
       type: boolean
       expose: true
     favoriteColors:
-      type: array<string>
+      type: array
       expose: true
       serialized_name: favoriteColors
     mother:

@@ -36,18 +36,17 @@ if ($warmup) {
     }
 }
 
+$probe = null;
+
 if ($profile) {
     $blackfire = new \Blackfire\Client();
     $config = new \Blackfire\Profile\Configuration();
-    $config->setTitle($class);
-    $probe = $blackfire->createProbe($config);
+    $config->setTitle($class . '::{{ subject }}');
+    $config->setSamples({{ revolutions }});
+    $probe = $blackfire->createProbe($config, false);
 }
 
-$time = benchmark($benchmark, $parameters);
-
-if ($profile) {
-    $blackfire->endProbe($probe);
-}
+$time = benchmark($benchmark, $parameters, $probe);
 
 foreach ($afterMethods as $afterMethod) {
     $benchmark->$afterMethod($parameters);
@@ -65,10 +64,10 @@ echo serialize([
         'real' => memory_get_usage(true),
     ],
     'time' => (int) $time,
-    'buffer' => $buffer,
+    'buffer' => $buffer
 ]);
 
-function benchmark($benchmark, $parameters)
+function benchmark($benchmark, $parameters, $probe)
 {
     // run the benchmarks: note that passing arguments to the method slightly increases
     // the calltime, so we explicitly do one thing or the other depending on if parameters
@@ -77,7 +76,9 @@ function benchmark($benchmark, $parameters)
         $startTime = microtime(true);
 
         for ($i = 0; $i < {{ revolutions }}; $i++) {
+            $probe ? $probe->enable() : null;
             $benchmark->{{ subject }}($parameters);
+            $probe ? $probe->close() : null;
         }
 
         $endTime = microtime(true);
@@ -85,7 +86,9 @@ function benchmark($benchmark, $parameters)
         $startTime = microtime(true);
 
         for ($i = 0; $i < {{ revolutions }}; $i++) {
+            $probe ? $probe->enable() : null;
             $benchmark->{{ subject }}();
+            $probe ? $probe->close() : null;
         }
 
         $endTime = microtime(true);

@@ -4,10 +4,14 @@ namespace TSantos\Benchmark\Symfony;
 
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\SerializerAwareInterface;
+use Symfony\Component\Serializer\SerializerAwareTrait;
 use TSantos\Benchmark\Person;
 
-class PersonDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
+class PersonDenormalizer implements DenormalizerInterface, SerializerAwareInterface, CacheableSupportsMethodInterface
 {
+    use SerializerAwareTrait;
+
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         $person = new Person();
@@ -25,7 +29,7 @@ class PersonDenormalizer implements DenormalizerInterface, CacheableSupportsMeth
             $person->setFavoriteColors($data['favoriteColors']);
         }
         if (isset($data['mother'])) {
-            $person->setMother($this->denormalize($data['mother'], $class, $format, $context));
+            $person->setMother($this->serializer->denormalize($data['mother'], $class, $format, $context));
         }
 
         return $person;
