@@ -1,6 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
-composer.phar
 /vendor/
 .idea
-/cache
-!/cache/.gitkeep
+Dockerfile
