@@ -8,7 +8,7 @@ use TSantos\Benchmark\Person;
  * Class TSantosAccessorBench
  * @package TSantos\Benchmark\Bench
  */
-class TSantosAccessorBench extends AbstractTSantosBench
+class TSantosBench extends AbstractTSantosBench
 {
     protected function doBenchSerialize(array $objects): void
     {

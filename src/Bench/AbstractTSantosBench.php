@@ -8,7 +8,6 @@ use TSantos\Benchmark\AbstractBench;
 use TSantos\Serializer\Metadata\Driver\YamlDriver;
 use TSantos\Serializer\SerializerBuilder;
 use TSantos\Serializer\SerializerInterface;
-use TSantos\Serializer\TypeGuesser;
 
 /**
  * Class AbstractTSantosBench
@@ -30,11 +29,11 @@ abstract class AbstractTSantosBench extends AbstractBench
     {
         $fileLocator = new FileLocator(['TSantos\Benchmark' => $this->getResourceDir('/mappings/tsantos')]);
 
-        $this->createCacheDir('/classes', '/metadata');
+        $this->createCacheDir('/hydrators', '/metadata');
 
         $builder = (new SerializerBuilder())
-            ->setMetadataDriver(new YamlDriver($fileLocator, new TypeGuesser()))
-            ->setSerializerClassDir($this->getCacheDir('/classes'))
+            ->setMetadataDriver(new YamlDriver($fileLocator))
+            ->setHydratorDir($this->getCacheDir('/hydrators'))
             ->setMetadataCacheDir($this->getCacheDir('/metadata'))
             ->enableBuiltInNormalizers()
             ->setDebug(false);

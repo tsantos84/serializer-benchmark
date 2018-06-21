@@ -9,7 +9,7 @@ use Zumba\JsonSerializer\JsonSerializer;
  * Class ZumbaJsonSerializerBench
  * @package TSantos\Benchmark\Bench
  */
-class ZumbaJsonSerializerBench extends AbstractBench
+class ZumbaJsonBench extends AbstractBench
 {
     /**
      * @var JsonSerializer
