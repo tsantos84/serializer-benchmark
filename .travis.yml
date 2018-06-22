@@ -12,7 +12,7 @@ before_install:
   - phpenv config-rm xdebug.ini;
 
 install:
-  - composer install -a --no-dev
+  - composer install -a --no-dev --prefer-source
 
 script:
   - |
