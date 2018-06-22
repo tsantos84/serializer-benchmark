@@ -10,6 +10,7 @@ matrix:
 
 before_install:
   - phpenv config-rm xdebug.ini;
+  - composer clear-cache
 
 install:
   - composer install -a --no-dev --prefer-source
