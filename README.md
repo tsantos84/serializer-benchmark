@@ -75,10 +75,59 @@ php vendor/bin/phpbench vendors
 This project was written based on [PHPBench](http://phpbench.readthedocs.io/en/latest/index.html). Please,
 refer to its documentation page for further reading about all its runner options.
 
+## Blackfire Integration
+
+[Blackfire](https://blackfire.io/) is a excelent tool to profile PHP applications and helps you to discover some bottleneck points. This project allows you to run benchmarks and send the call-graph to Blackfire's server so you can see how each library works internally.
+
+### Installation
+
+In order to start using Blackfire, you first need to sign up on Blackfire.io and then you'll have access to your credentials.
+
+#### Agent
+
+Creates a new docker container with the Blackfire's Agent:
+
+```bash
+docker run -d \
+  --name="blackfire" \
+  -e BLACKFIRE_SERVER_ID={YOUR_BLACKFIRE_SERVER_ID_HERE} \
+  -e BLACKFIRE_SERVER_TOKEN={YOUR_BLACKFIRE_SERVER_TOKEN_HERE} \
+  blackfire/blackfire
+```
+
+#### PHP Executable
+
+Create a custom PHP image with Blackfire extension installed and enabled:
+
+```bash
+cd /path/to/serializer-benchmark
+docker build -t benchmark -f Dockerfile.blackfire.dist .
+```
+
+#### Running the application
+
+Now you can run the application using the PHP image create on step before:
+
+```bash
+docker run \
+  --rm \
+  -it \
+  -v $(pwd):/opt \
+  -w /opt \
+  -e BLACKFIRE_CLIENT_ID={YOUR_BLACKFIRE_CLIENT_ID_HERE} \
+  -e BLACKFIRE_CLIENT_TOKEN={YOUR_BLACKFIRE_CLIENT_TOKEN_HERE} \
+  --link blackfire:blackfire \
+  benchmark php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --executor=blackfire
+```
+
+#### Note
+
+By runnig the benchmark with Blackfire enabled you'll realize that the mean time will increase substantially. This behavior is expected because the Blackfire needs to introspect in your code and hence affects the benchmark metrics.
+
 ## Contribution
 
 Want to see more libraries in this benchmark? You can easily add new benchmarks by implementing the 
 [BenchInterface](https://github.com/tsantos84/serializer-benchmark/blob/master/src/BenchInterface.php) interface 
 or extending the [AbstractBench](https://github.com/tsantos84/serializer-benchmark/blob/master/src/AbstractBench.php)
-class which has a lot of help methods. Please, take a look at some of existing bench class and you'll see how you can 
+class which has a lot of help methods. Please, take a look at some of existing bench classes and you'll see how you can 
 write your own benchmark. 
