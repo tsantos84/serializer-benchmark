@@ -32,7 +32,8 @@
         "symfony/property-access": "^4.0",
         "doctrine/cache": "^1.7",
         "nilportugues/serializer":"dev-master",
-        "blackfire/php-sdk": "^1.14"
+        "blackfire/php-sdk": "^1.14",
+        "tebru/gson-php": "dev-master"
     },
     "repositories": [
         {
