@@ -18,14 +18,15 @@ class Person
     private $mother;
     /** @var  boolean */
     private $married;
-    /** @var array */
-    private $favoriteColors = [];
+    /** @var string[] */
+    private $favoriteColors;
 
     /**
      * Person constructor.
      * @param int $id
      * @param string $name
      * @param bool $married
+     * @param string[] $favoriteColors
      * @param Person $mother
      */
     public function __construct(int $id = null, string $name = null, bool $married = false, array $favoriteColors = [], ?Person $mother = null)
@@ -118,7 +119,7 @@ class Person
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getFavoriteColors(): array
     {
@@ -126,7 +127,7 @@ class Person
     }
 
     /**
-     * @param array $favoriteColors
+     * @param string[] $favoriteColors
      * @return Person
      */
     public function setFavoriteColors(array $favoriteColors): Person
