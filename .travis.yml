@@ -4,8 +4,6 @@ sudo: false
 
 matrix:
   include:
-    - php: 7.1
-      env: COMPOSER_FLAGS="--ignore-platform-reqs"
     - php: 7.2
   fast_finish: true
 
@@ -14,7 +12,7 @@ before_install:
   - composer clear-cache
 
 install:
-  - composer install -a --prefer-source ${COMPOSER_FLAGS}
+  - composer install -a --prefer-source
 
 script:
   - |
