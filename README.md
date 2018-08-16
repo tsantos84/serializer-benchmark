@@ -103,7 +103,7 @@ Create a custom PHP image with Blackfire extension installed and enabled:
 
 ```bash
 cd /path/to/serializer-benchmark
-docker build -t benchmark -f Dockerfile.blackfire.dist .
+docker build -t benchmark -f Dockerfile.blackfire .
 ```
 
 #### Running the application
@@ -122,9 +122,46 @@ docker run \
   benchmark php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --executor=blackfire
 ```
 
+#### Docker Compose
+
+Instead of running each container manually, you can use `docker-compose` to run the benchmarks. To accomplish this
+you need to create a copy of the `docker-compose.yaml.dist` file:
+
+```bash
+cp docker-compose.yml.dist docker-compose.yml
+```
+
+and run one of the following commands:
+
+```bash
+
+# perform serialization benchmark
+docker-compose run --rm bench_serialize
+
+# perform deserialization benchmark
+docker-compose run --rm bench_derialize
+
+# perform serialization benchmark with Blackfire enabled
+docker-compose run --rm bench_serialize_blackfire \
+    -e BLACKFIRE_SERVER_ID={YOUR_BLACKFIRE_SERVER_ID} \
+    -e BLACKFIRE_SERVER_TOKEN={YOUR_BLACKFIRE_SERVER_TOKEN} \
+    -e BLACKFIRE_CLIENT_ID={YOUR_BLACKFIRE_CLIENT_ID} \
+    -e BLACKFIRE_CLIENT_TOKEN={YOU_BLACKFIRE_CLIENT_TOKEN}
+
+# perform deserialization benchmark with Blackfire enabled
+docker-compose run --rm bench_deserialize_blackfire \
+    -e BLACKFIRE_SERVER_ID={YOUR_BLACKFIRE_SERVER_ID} \
+    -e BLACKFIRE_SERVER_TOKEN={YOUR_BLACKFIRE_SERVER_TOKEN} \
+    -e BLACKFIRE_CLIENT_ID={YOUR_BLACKFIRE_CLIENT_ID} \
+    -e BLACKFIRE_CLIENT_TOKEN={YOU_BLACKFIRE_CLIENT_TOKEN}
+```
+
+As you have your own copy of the `docker-compose.yml` file, you can define those environment variables there
+and save time when run the benchmarks with Blackfire enabled.
+
 #### Note
 
-By runnig the benchmark with Blackfire enabled you'll realize that the mean time will increase substantially. This behavior is expected because the Blackfire needs to introspect in your code and hence affects the benchmark metrics.
+By running the benchmark with Blackfire enabled you'll realize that the mean time will increase substantially. This behavior is expected because the Blackfire needs to introspect in your code and hence affects the benchmark metrics.
 
 ## Contribution
 

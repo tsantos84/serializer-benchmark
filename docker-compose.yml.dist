@@ -1,0 +1,51 @@
+version: '2'
+services:
+  bench_serialize:
+    build: .
+    container_name: bench_serialize
+    volumes_from:
+      - composer
+    working_dir: /opt/serializer-benchmark
+    command: sh -c 'vendor/bin/phpbench run --warmup=1 --iterations=5 --report=tsantos --group=serialize'
+
+  bench_deserialize:
+    build: .
+    container_name: bench_deserialize
+    volumes_from:
+      - composer
+    working_dir: /opt/serializer-benchmark
+    command: sh -c 'vendor/bin/phpbench run --warmup=1 --iterations=5 --report=tsantos --group=deserialize'
+
+  bench_serialize_blackfire:
+    build:
+      dockerfile: Dockerfile.blackfire.dist
+      context: .
+    container_name: bench_serialize_blackfire
+    command: sh -c 'vendor/bin/phpbench run --warmup=1 --revs=5 --report=tsantos --group=serialize --executor=blackfire'
+    volumes_from:
+      - composer
+    working_dir: /opt/serializer-benchmark
+    links:
+      - blackfire
+
+  bench_deserialize_blackfire:
+    build:
+      dockerfile: Dockerfile.blackfire.dist
+      context: .
+    container_name: bench_deserialize_blackfire
+    command: sh -c 'vendor/bin/phpbench run --warmup=1 --revs=5 --report=tsantos --group=deserialize --executor=blackfire'
+    volumes_from:
+      - composer
+    working_dir: /opt/serializer-benchmark
+    links:
+      - blackfire
+
+  blackfire:
+    image: blackfire/blackfire
+
+  composer:
+    image: composer
+    container_name: bench_composer
+    working_dir: /opt/serializer-benchmark
+    volumes:
+      - ./:/opt/serializer-benchmark

@@ -1,7 +1,6 @@
 FROM php:7.2-cli-alpine
 
-#ENV BLACKFIRE_CLIENT_ID=<client_id>
-#ENV BLACKFIRE_CLIENT_TOKEN=<token_id>
+RUN docker-php-ext-install opcache
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$version \
