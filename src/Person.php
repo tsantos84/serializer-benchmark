@@ -29,7 +29,7 @@ class Person
      * @param string[] $favoriteColors
      * @param Person $mother
      */
-    public function __construct(int $id = null, string $name = null, bool $married = false, array $favoriteColors = [], ?Person $mother = null)
+    public function __construct(?int $id = null, ?string $name = null, ?bool $married = false, ?array $favoriteColors = [], ?Person $mother = null)
     {
         $this->id = $id;
         $this->name = $name;
