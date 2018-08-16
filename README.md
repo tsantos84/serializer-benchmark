@@ -139,7 +139,7 @@ and run one of the following commands:
 docker-compose run --rm bench_serialize
 
 # perform deserialization benchmark
-docker-compose run --rm bench_derialize
+docker-compose run --rm bench_deserialize
 
 # perform serialization benchmark with Blackfire enabled
 docker-compose run --rm bench_serialize_blackfire \
