@@ -33,7 +33,8 @@
         "doctrine/cache": "^1.7",
         "nilportugues/serializer":"dev-master",
         "blackfire/php-sdk": "^1.14",
-        "tebru/gson-php": "dev-master"
+        "tebru/gson-php": "dev-master",
+        "better-serializer/better-serializer": "dev-master"
     },
     "repositories": [
         {

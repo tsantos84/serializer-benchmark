@@ -8,6 +8,7 @@ This project aims to compare the performance of some most used and few less know
 - [Zumba Json Serializer](https://github.com/zumba/json-serializer)
 - [Nil Portugués](https://github.com/nilportugues/php-serializer)
 - [Gson](https://github.com/tebru/gson-php)
+- [Better Serializer](https://github.com/better-serializer/better-serializer)
 
 ## Inspiration
 
@@ -127,8 +128,8 @@ By runnig the benchmark with Blackfire enabled you'll realize that the mean time
 
 ## Contribution
 
-Want to see more libraries in this benchmark? You can easily add new benchmarks by implementing the 
-[BenchInterface](https://github.com/tsantos84/serializer-benchmark/blob/master/src/BenchInterface.php) interface 
+Want to see more libraries in this benchmark? You can easily add new benchmarks by implementing the
+[BenchInterface](https://github.com/tsantos84/serializer-benchmark/blob/master/src/BenchInterface.php) interface
 or extending the [AbstractBench](https://github.com/tsantos84/serializer-benchmark/blob/master/src/AbstractBench.php)
-class which has a lot of help methods. Please, take a look at some of existing bench classes and you'll see how you can 
-write your own benchmark. 
+class which has a lot of help methods. Please, take a look at some of existing bench classes and you'll see how you can
+write your own benchmark.
