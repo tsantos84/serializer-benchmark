@@ -22,7 +22,7 @@ class GsonBench extends AbstractBench
     {
         $this->gson = Gson::builder()
             ->enableCache(true)
-            ->setCacheDir($this->getCacheDir('gson'))
+            ->setCacheDir($this->getCacheDir())
             ->setPropertyNamingPolicy(PropertyNamingPolicy::IDENTITY)
             ->build();
     }
