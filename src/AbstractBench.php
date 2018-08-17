@@ -158,7 +158,7 @@ JSON;
      */
     protected function getCacheDir(string $suffix = ''): string
     {
-        return $this->cacheDir . $suffix;
+        return $this->cacheDir . DIRECTORY_SEPARATOR . ltrim($suffix, DIRECTORY_SEPARATOR);
     }
 
     /**
