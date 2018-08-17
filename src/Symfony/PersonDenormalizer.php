@@ -16,20 +16,43 @@ class PersonDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     {
         $person = new Person();
 
-        if (array_key_exists('id', $data)) {
-            $person->setId($data['id']);
+        if (isset($data['id']) || \array_key_exists('id', $data)) {
+            if (null !== $value = $data['id']) {
+                $person->setId($data['id']);
+            } else {
+                $person->setId(null);
+            }
         }
-        if (array_key_exists('name', $data)) {
-            $person->setName($data['name']);
+        if (isset($data['name']) || \array_key_exists('name', $data)) {
+            if (null !== $value = $data['name']) {
+                $person->setName($data['name']);
+            } else {
+                $person->setName(null);
+            }
         }
-        if (array_key_exists('married', $data)) {
-            $person->setMarried($data['married']);
+        if (isset($data['married']) || \array_key_exists('married', $data)) {
+            if (null !== $value = $data['married']) {
+                $person->setMarried($data['married']);
+            } else {
+                $person->setMarried(null);
+            }
         }
-        if (array_key_exists('favoriteColors', $data)) {
-            $person->setFavoriteColors($data['favoriteColors']);
+        if (isset($data['favoriteColors']) || \array_key_exists('favoriteColors', $data)) {
+            if (null !== $value = $data['favoriteColors']) {
+                foreach ($data['favoriteColors'] as $key => $color) {
+                    $value[$key] = (string) $color;
+                }
+                $person->setFavoriteColors($value);
+            } else {
+                $person->setFavoriteColors(null);
+            }
         }
-        if (isset($data['mother'])) {
-            $person->setMother($this->serializer->denormalize($data['mother'], $class, $format, $context));
+        if (isset($data['mother']) || \array_key_exists('mother', $data)) {
+            if (null !== $value = $data['mother']) {
+                $person->setMother($this->serializer->denormalize($value, $class, $format, $context));
+            } else {
+                $person->setMother(null);
+            }
         }
 
         return $person;
