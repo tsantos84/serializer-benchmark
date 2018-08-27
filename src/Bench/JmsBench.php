@@ -7,7 +7,6 @@ use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use TSantos\Benchmark\AbstractBench;
-use TSantos\Benchmark\Person;
 
 /**
  * Class JmsBench
@@ -35,9 +34,9 @@ class JmsBench extends AbstractBench
         $this->serializer->serialize($objects, 'json');
     }
 
-    protected function doBenchDeserialize(string $content): void
+    protected function doBenchDeserialize(string $content, string $type): void
     {
-        $this->serializer->deserialize($content, 'array<' . Person::class . '>', 'json');
+        $this->serializer->deserialize($content, 'array<' . $type . '>', 'json');
     }
 
     public function getName(): string

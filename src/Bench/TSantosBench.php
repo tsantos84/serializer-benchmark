@@ -5,7 +5,6 @@ namespace TSantos\Benchmark\Bench;
 use Metadata\Driver\FileLocator;
 use Symfony\Component\Filesystem\Filesystem;
 use TSantos\Benchmark\AbstractBench;
-use TSantos\Benchmark\Person;
 use TSantos\Serializer\Metadata\Driver\YamlDriver;
 use TSantos\Serializer\SerializerBuilder;
 use TSantos\Serializer\SerializerInterface;
@@ -47,9 +46,9 @@ class TSantosBench extends AbstractBench
         $this->serializer->serialize($objects);
     }
 
-    protected function doBenchDeserialize(string $content): void
+    protected function doBenchDeserialize(string $content, string $type): void
     {
-        $this->serializer->deserialize($content, Person::class . '[]');
+        $this->serializer->deserialize($content, $type . '[]');
     }
 
     public function getName(): string

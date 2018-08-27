@@ -1,0 +1,8 @@
+TSantos\Benchmark\Post:
+  properties:
+    id:
+      type: integer
+    title:
+      type: string
+    summary:
+      type: string

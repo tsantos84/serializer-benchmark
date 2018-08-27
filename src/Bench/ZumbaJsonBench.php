@@ -26,7 +26,7 @@ class ZumbaJsonBench extends AbstractBench
         $this->serializer->serialize($objects);
     }
 
-    protected function doBenchDeserialize(string $content): void
+    protected function doBenchDeserialize(string $content, string $type): void
     {
         $this->serializer->unserialize($content);
     }

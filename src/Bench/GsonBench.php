@@ -5,7 +5,6 @@ namespace TSantos\Benchmark\Bench;
 use Tebru\Gson\Gson;
 use Tebru\Gson\PropertyNamingPolicy;
 use TSantos\Benchmark\AbstractBench;
-use TSantos\Benchmark\Person;
 
 /**
  * Class GsonBench
@@ -32,9 +31,9 @@ class GsonBench extends AbstractBench
         $this->gson->toJson($objects);
     }
 
-    protected function doBenchDeserialize(string $content): void
+    protected function doBenchDeserialize(string $content, string $type): void
     {
-        $this->gson->fromJson($content, 'array<' . Person::class . '>');
+        $this->gson->fromJson($content, 'array<' . $type . '>');
     }
 
     public function getName(): string

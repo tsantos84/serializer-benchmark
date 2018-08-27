@@ -21,12 +21,22 @@ abstract class AbstractBench implements BenchInterface
     /**
      * @var Person[]
      */
-    private $objects = [];
+    private $persons = [];
+
+    /**
+     * @var Post[]
+     */
+    private $posts = [];
 
     /**
      * @var string
      */
-    private $content;
+    private $personContent;
+
+    /**
+     * @var string
+     */
+    private $postContent;
 
     /**
      * @var string
@@ -51,6 +61,7 @@ abstract class AbstractBench implements BenchInterface
     final public function initObjects(): void
     {
         $persons = [];
+        $posts = [];
 
         for ($i = 0; $i < 200; $i++) {
             $persons[] = (new Person())
@@ -67,7 +78,12 @@ abstract class AbstractBench implements BenchInterface
                 );
         }
 
-        $this->objects = $persons;
+        for ($i = 0; $i < 200; $i++) {
+            $posts[] = new Post($i, 'Title ' . $i, 'Summary ' . $i);
+        }
+
+        $this->persons = $persons;
+        $this->posts = $posts;
     }
 
     /**
@@ -75,9 +91,9 @@ abstract class AbstractBench implements BenchInterface
      */
     final public function initContent(): void
     {
-        $content = [];
+        $personContent = [];
         for ($i = 0; $i < 200; $i++) {
-            $content[] = <<<JSON
+            $personContent[] = <<<JSON
                 {
                     "@type":"TSantos\\\Benchmark\\\Person",
                     "id":${i},
@@ -96,7 +112,20 @@ abstract class AbstractBench implements BenchInterface
 JSON;
         }
 
-        $this->content = sprintf('[%s]', implode(',', $content));
+        $postContent = [];
+        for ($i = 0; $i < 200; $i++) {
+            $postContent[] = <<<JSON
+                {
+                    "@type":"TSantos\\\Benchmark\\\Post",
+                    "id":${i},
+                    "title":"Foo ",
+                    "summary":"Foo"
+                }
+JSON;
+        }
+
+        $this->personContent = sprintf('[%s]', implode(',', $personContent));
+        $this->postContent = sprintf('[%s]', implode(',', $postContent));
     }
 
     /**
@@ -104,7 +133,7 @@ JSON;
      */
     final public function benchSerialize(): void
     {
-        $this->doBenchSerialize($this->objects);
+        $this->doBenchSerialize($this->persons);
     }
 
     /**
@@ -112,7 +141,23 @@ JSON;
      */
     final public function benchDeserialize(): void
     {
-        $this->doBenchDeserialize($this->content);
+        $this->doBenchDeserialize($this->personContent, Person::class);
+    }
+
+    /**
+     * @Groups({"serialize-reflection"})
+     */
+    final public function benchSerializeReflection(): void
+    {
+        $this->doBenchSerialize($this->posts);
+    }
+
+    /**
+     * @Groups({"deserialize-reflection"})
+     */
+    final public function benchDeserializeReflection(): void
+    {
+        $this->doBenchDeserialize($this->postContent, Post::class);
     }
 
     /**
@@ -123,7 +168,7 @@ JSON;
      */
     final protected function getResourceDir(string $suffix = ''): string
     {
-        return __DIR__ . '/Resources/' . $suffix;
+        return __DIR__ . '/Resources/' . ltrim($suffix, '/');
     }
 
     /**
@@ -177,6 +222,7 @@ JSON;
      * Performs the deserialize benchmark
      *
      * @param string $content
+     * @param string $type
      */
-    abstract protected function doBenchDeserialize(string $content): void;
+    abstract protected function doBenchDeserialize(string $content, string $type): void;
 }
