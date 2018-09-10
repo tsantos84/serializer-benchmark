@@ -6,6 +6,8 @@ use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
+use Metadata\Cache\PsrCacheAdapter;
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use TSantos\Benchmark\AbstractBench;
 
 /**
@@ -24,8 +26,7 @@ class JmsBench extends AbstractBench
         $this->serializer = SerializerBuilder::create()
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
-            ->setCacheDir($this->getCacheDir())
-            ->addMetadataDir($this->getResourceDir('/mappings/jms'), 'TSantos\\Benchmark')
+            ->setMetadataCache(new PsrCacheAdapter('JMSMetadata', new ApcuAdapter()))
             ->build();
     }
 

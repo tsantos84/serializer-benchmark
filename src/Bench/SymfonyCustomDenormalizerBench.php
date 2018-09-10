@@ -2,6 +2,7 @@
 
 namespace TSantos\Benchmark\Bench;
 
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\LoaderChain;
@@ -29,7 +30,7 @@ class SymfonyCustomDenormalizerBench extends AbstractBench
         $metadataFactory = new ClassMetadataFactory(new LoaderChain([
             new YamlFileLoader($this->getResourceDir('/mappings/symfony/Person.yaml')),
             new YamlFileLoader($this->getResourceDir('/mappings/symfony/Post.yaml')),
-        ]));
+        ]), new ApcuAdapter('SymfonyMetadata'));
 
         $encoders = array(new JsonEncoder());
         $normalizers = array(new PersonDenormalizer(), new ArrayDenormalizer(), new ObjectNormalizer($metadataFactory));

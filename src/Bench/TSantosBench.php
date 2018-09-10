@@ -2,7 +2,9 @@
 
 namespace TSantos\Benchmark\Bench;
 
+use Metadata\Cache\PsrCacheAdapter;
 use Metadata\Driver\FileLocator;
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Filesystem\Filesystem;
 use TSantos\Benchmark\AbstractBench;
 use TSantos\Serializer\Metadata\Driver\YamlDriver;
@@ -35,7 +37,7 @@ class TSantosBench extends AbstractBench
         $this->serializer = (new SerializerBuilder())
             ->setMetadataDriver(new YamlDriver($fileLocator))
             ->setHydratorDir($this->getCacheDir('/hydrators'))
-            ->setMetadataCacheDir($this->getCacheDir('/metadata'))
+            ->setMetadataCache(new PsrCacheAdapter('TSantosMetadata', new ApcuAdapter()))
             ->enableBuiltInNormalizers()
             ->setDebug(false)
             ->build();
