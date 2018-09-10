@@ -2,6 +2,7 @@
 
 namespace TSantos\Benchmark\Bench;
 
+use Symfony\Component\Cache\Simple\ApcuCache;
 use Tebru\Gson\Gson;
 use Tebru\Gson\PropertyNamingPolicy;
 use TSantos\Benchmark\AbstractBench;
@@ -22,6 +23,7 @@ class GsonBench extends AbstractBench
         $this->gson = Gson::builder()
             ->enableCache(true)
             ->setCacheDir($this->getCacheDir())
+            ->setCache(new ApcuCache('GsonMetadata'))
             ->setPropertyNamingPolicy(PropertyNamingPolicy::IDENTITY)
             ->build();
     }
