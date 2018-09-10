@@ -10,7 +10,6 @@ matrix:
 before_install:
   - composer clear-cache
   - phpenv config-rm xdebug.ini;
-  - pecl install apcu-5.1.12
   - phpenv config-add php.ini
 
 install:
