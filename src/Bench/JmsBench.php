@@ -26,7 +26,7 @@ class JmsBench extends AbstractBench
         $this->serializer = SerializerBuilder::create()
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
-            ->setMetadataCache(new PsrCacheAdapter('JMSMetadata', new ApcuAdapter()))
+            ->setMetadataCache(new PsrCacheAdapter('JMSMetadata', new ApcuAdapter('JMSMetadata')))
             ->build();
     }
 
