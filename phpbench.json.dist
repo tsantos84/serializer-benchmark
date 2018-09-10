@@ -2,7 +2,7 @@
     "bootstrap": "vendor/autoload.php",
     "path": "src/Bench",
     "time_unit": "milliseconds",
-    "progress": "blinken",
+    "progress": "dots",
     "reports": {
         "tsantos": {
             "generator": "table",
