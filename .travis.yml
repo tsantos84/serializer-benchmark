@@ -8,8 +8,9 @@ matrix:
   fast_finish: true
 
 before_install:
-  - phpenv config-rm xdebug.ini;
   - composer clear-cache
+  - phpenv config-rm xdebug.ini;
+  - pecl install apcu-5.1.5
   - phpenv config-add php.ini
 
 install:
