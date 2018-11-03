@@ -14,9 +14,7 @@ jobs:
           command: |
             sudo apt-get -y install gcc make autoconf libc-dev pkg-config
             sudo pecl install apcu
-            php --ini
-            sudo echo "extension = apcu.so" >> /usr/local/etc/php/conf.d/apcu.ini
-#            pecl7.X-sp install apcu
+            docker-php-ext-enable apcu
 
       # Download and cache dependencies
       - restore_cache:
