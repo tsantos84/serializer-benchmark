@@ -15,22 +15,20 @@ jobs:
             - v1-dependencies-{{ checksum "composer.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+
+      - run: composer install -a --prefer-source
+
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-  benchmark:
-    docker:
-      - image: circleci/php:7.2-cli
-    steps:
-      - checkout
-      - run: php vendor/bin/phpbench vendors
-      - run: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
-      - run: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - benchmark
+      - run:
+          name: List all vendors
+          command: php vendor/bin/phpbench vendors
+      - run:
+          name: Perform serialization
+          command: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
+      - run:
+          name: Perform deserialization
+          command: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
