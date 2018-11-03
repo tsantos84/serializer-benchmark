@@ -35,9 +35,15 @@ jobs:
       - run:
           name: List all vendors
           command: php vendor/bin/phpbench vendors
+
       - run:
           name: Perform serialization
-          command: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
+          command: |
+            php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
+            php -r "var_dump(apcu_clear_cache());"
+
       - run:
           name: Perform deserialization
-          command: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
+          command: |
+            php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
+            php -r "var_dump(apcu_clear_cache());"
