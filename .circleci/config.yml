@@ -16,7 +16,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: docker-compose -f docker-compose.yml.dist run composer install
+      - run: composer install -a --prefere-source
 
       - save_cache:
           paths:
@@ -24,4 +24,6 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
 
       # run tests!
-      - run: docker-compose -f docker-compose.yml.dist run bench_serialize
+      - run: php vendor/bin/phpbench vendors
+      - run: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
+      - run: php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
