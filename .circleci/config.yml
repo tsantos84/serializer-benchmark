@@ -16,7 +16,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: docker-compose run composer install
+      - run: docker-compose -f docker-compose.yml.dist run composer install
 
       - save_cache:
           paths:
@@ -24,4 +24,4 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
 
       # run tests!
-      - run: docker-compose run bench_serialize
+      - run: docker-compose -f docker-compose.yml.dist run bench_serialize
