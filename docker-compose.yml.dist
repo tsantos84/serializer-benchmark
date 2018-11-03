@@ -47,5 +47,7 @@ services:
     image: composer
     container_name: bench_composer
     working_dir: /opt/serializer-benchmark
+    command: update
     volumes:
       - ./:/opt/serializer-benchmark
+      - ../serializer:/opt/serializer

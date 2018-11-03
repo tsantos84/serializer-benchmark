@@ -14,7 +14,6 @@ use BetterSerializer\Builder;
 use BetterSerializer\Common\SerializationType;
 use BetterSerializer\Serializer;
 use TSantos\Benchmark\AbstractBench;
-use TSantos\Benchmark\Person;
 
 /**
  * Class BetterSerializer
@@ -41,9 +40,9 @@ class BetterSerializer extends AbstractBench
         $this->serializer->serialize($objects, SerializationType::JSON());
     }
 
-    protected function doBenchDeserialize(string $content): void
+    protected function doBenchDeserialize(string $content, string $type): void
     {
-        $this->serializer->deserialize($content, sprintf('array<%s>', Person::class), SerializationType::JSON());
+        $this->serializer->deserialize($content, sprintf('array<%s>', $type), SerializationType::JSON());
     }
 
     public function getName(): string

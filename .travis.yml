@@ -8,8 +8,10 @@ matrix:
   fast_finish: true
 
 before_install:
-  - phpenv config-rm xdebug.ini;
   - composer clear-cache
+  - phpenv config-rm xdebug.ini;
+  - phpenv config-add php.ini
+  - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 install:
   - composer install -a --prefer-source

@@ -6,8 +6,9 @@ use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
+use Metadata\Cache\PsrCacheAdapter;
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use TSantos\Benchmark\AbstractBench;
-use TSantos\Benchmark\Person;
 
 /**
  * Class JmsBench
@@ -25,8 +26,8 @@ class JmsBench extends AbstractBench
         $this->serializer = SerializerBuilder::create()
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
-            ->setCacheDir($this->getCacheDir())
-            ->addMetadataDir($this->getResourceDir('/mappings/jms'), 'TSantos\\Benchmark')
+            ->setMetadataCache(new PsrCacheAdapter('JMSMetadata', new ApcuAdapter('JMSMetadata')))
+            ->addMetadataDir($this->getResourceDir('/mappings/jms'), 'TSantos\Benchmark')
             ->build();
     }
 
@@ -35,9 +36,9 @@ class JmsBench extends AbstractBench
         $this->serializer->serialize($objects, 'json');
     }
 
-    protected function doBenchDeserialize(string $content): void
+    protected function doBenchDeserialize(string $content, string $type): void
     {
-        $this->serializer->deserialize($content, 'array<' . Person::class . '>', 'json');
+        $this->serializer->deserialize($content, 'array<' . $type . '>', 'json');
     }
 
     public function getName(): string

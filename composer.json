@@ -40,6 +40,10 @@
         {
             "type": "git",
             "url": "https://github.com/tsantos84/php-serializer"
+        },
+        {
+            "type": "path",
+            "url": "../serializer"
         }
     ]
 }

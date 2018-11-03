@@ -1,0 +1,5 @@
+TSantos\Benchmark\Post:
+  attributes:
+    id: ~
+    title: ~
+    summary: ~

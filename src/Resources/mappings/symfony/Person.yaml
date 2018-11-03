@@ -1,0 +1,7 @@
+TSantos\Benchmark\Person:
+  attributes:
+    id: ~
+    name: ~
+    married: ~
+    favoriteColors: ~
+    mother: ~

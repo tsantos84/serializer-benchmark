@@ -1,0 +1,12 @@
+TSantos\Benchmark\Post:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+      expose: true
+    title:
+      type: string
+      expose: true
+    summary:
+      type: string
+      expose: true

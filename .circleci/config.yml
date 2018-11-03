@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.2-cli
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: Environment dependencies
+          command: |
+            sudo apt-get -y install gcc make autoconf libc-dev pkg-config
+            sudo pecl install apcu
+            sudo docker-php-ext-enable apcu
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install project dependencies
+          command: composer install -a --prefer-source
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+
+      - run:
+          name: List all vendors
+          command: php vendor/bin/phpbench vendors
+
+      - run:
+          name: Perform serialization
+          command: |
+            php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize --iterations=10
+
+      - run:
+          name: Perform deserialization
+          command: |
+            php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=deserialize --iterations=10
