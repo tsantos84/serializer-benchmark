@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: php:7.2-cli-alpine
+      - image: circleci/php:7.2-cli
 
     working_directory: ~/repo
 
