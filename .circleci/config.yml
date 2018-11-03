@@ -9,6 +9,11 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Environment dependencies
+          command: |
+            echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -16,7 +21,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: composer install -a --prefer-source
+      - run:
+          name: Install project dependencies
+          command: composer install -a --prefer-source
 
       - save_cache:
           paths:
