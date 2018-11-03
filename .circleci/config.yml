@@ -12,9 +12,8 @@ jobs:
       - run:
           name: Environment dependencies
           command: |
-            apt-get -y install gcc make autoconf libc-dev pkg-config
-            pecl install apcu
-            pecl7.X-sp install apcu
+            sudo apt-get -y install gcc make autoconf libc-dev pkg-config
+            sudo pecl7.X-sp install apcu
 
       # Download and cache dependencies
       - restore_cache:
