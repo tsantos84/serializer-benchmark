@@ -27,6 +27,7 @@ class JmsBench extends AbstractBench
             ->setPropertyNamingStrategy(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()))
             ->setDebug(false)
             ->setMetadataCache(new PsrCacheAdapter('JMSMetadata', new ApcuAdapter('JMSMetadata')))
+            ->addMetadataDir($this->getResourceDir('/mappings/jms'), 'TSantos\Benchmark')
             ->build();
     }
 
