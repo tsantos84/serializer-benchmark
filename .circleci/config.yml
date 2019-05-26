@@ -32,6 +32,10 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
+  benchmark:
+    docker:
+      - image: circleci/php:7.2-cli
+    steps:
       - run:
           name: List all vendors
           command: php vendor/bin/phpbench vendors
