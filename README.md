@@ -62,7 +62,7 @@ There're 2 available benchmark groups:
   - `deserialize` - run deserialization benchmark only
 
 ```bash
-php vendor/bin/phpbench run --warmup=1 --report=tsantos --groups=serialize
+php vendor/bin/phpbench run --warmup=1 --report=tsantos --group=serialize
 ```
 ### Vendors
 
